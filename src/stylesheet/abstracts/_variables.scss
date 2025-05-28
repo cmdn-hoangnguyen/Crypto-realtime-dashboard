@@ -1,0 +1,33 @@
+// Primary brand colors
+$color-primary: #1e40af;      
+$color-secondary: #facc15; 
+$color-accent: #22c55e;      
+$color-error: #dc2626;        
+$color-warning: #f59e0b;     
+
+// Neutral colors
+$color-gray-100: #f3f4f6;
+$color-gray-300: #d1d5db;
+$color-gray-500: #6b7280;
+$color-gray-700: #374151;
+$color-gray-900: #111827;
+
+// Background colors
+$bg-primary: #0f172a;
+$bg-secondary: #1e293b;
+$bg-muted: #334155;
+
+// Text colors
+$text-primary: #e0e7ff;
+$text-secondary: #cbd5e1;
+$text-muted: #94a3b8;
+
+// Border colors
+$border-default: $color-gray-700;
+$border-accent: $color-primary;
+
+// Semantic states
+$success: $color-accent;
+$error: $color-error;
+$warning: $color-warning;
+$info: $color-primary;
