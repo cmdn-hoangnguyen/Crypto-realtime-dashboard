@@ -1,26 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  // Brand colors
   --color-primary: #1e40af;
   --color-secondary: #facc15;
   --color-accent: #22c55e;
   --color-error: #dc2626;
   --color-warning: #f59e0b;
+  --color-muted: #6b7280;
 
-  // Backgrounds
   --bg-primary: #ffffff;
-  --bg-secondary: #f9fafb;
+  --bg-secondary: #f1f5f9;
   --bg-muted: #e5e7eb;
 
-  // Text colors
   --text-primary: #111827;
   --text-secondary: #374151;
-  --text-muted: #6b7280;
 
-  // Borders
   --border-default: #d1d5db;
   --border-accent: var(--color-primary);
 
-  // Semantic
   --success: var(--color-accent);
   --error: var(--color-error);
   --warning: var(--color-warning);
@@ -28,28 +27,23 @@
 }
 
 .dark {
-  // Brand colors
   --color-primary: #3b82f6;
   --color-secondary: #facc15;
   --color-accent: #22c55e;
   --color-error: #ef4444;
   --color-warning: #fbbf24;
+  --color-muted: #94a3b8;
 
-  // Backgrounds
   --bg-primary: #0f172a;
   --bg-secondary: #1e293b;
   --bg-muted: #334155;
 
-  // Text colors
   --text-primary: #e0e7ff;
   --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
 
-  // Borders
   --border-default: #475569;
   --border-accent: var(--color-primary);
 
-  // Semantic
   --success: var(--color-accent);
   --error: var(--color-error);
   --warning: var(--color-warning);
