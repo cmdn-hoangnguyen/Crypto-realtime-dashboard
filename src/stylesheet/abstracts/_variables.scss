@@ -1,46 +1,57 @@
-// Light mode
-$color-primary-light: #1e40af;
-$color-secondary-light: #facc15;
-$color-accent-light: #22c55e;
-$color-error-light: #dc2626;
-$color-warning-light: #f59e0b;
+:root {
+  // Brand colors
+  --color-primary: #1e40af;
+  --color-secondary: #facc15;
+  --color-accent: #22c55e;
+  --color-error: #dc2626;
+  --color-warning: #f59e0b;
 
-$bg-primary-light: #ffffff;
-$bg-secondary-light: #f9fafb;
-$bg-muted-light: #e5e7eb;
+  // Backgrounds
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-muted: #e5e7eb;
 
-$text-primary-light: #111827;
-$text-secondary-light: #374151;
-$text-muted-light: #6b7280;
+  // Text colors
+  --text-primary: #111827;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
 
-$border-default-light: #d1d5db;
-$border-accent-light: $color-primary-light;
+  // Borders
+  --border-default: #d1d5db;
+  --border-accent: var(--color-primary);
 
-// Dark mode
-$color-primary-dark: #3b82f6;
-$color-secondary-dark: #facc15;
-$color-accent-dark: #22c55e;
-$color-error-dark: #ef4444;
-$color-warning-dark: #fbbf24;
+  // Semantic
+  --success: var(--color-accent);
+  --error: var(--color-error);
+  --warning: var(--color-warning);
+  --info: var(--color-primary);
+}
 
-$bg-primary-dark: #0f172a;
-$bg-secondary-dark: #1e293b;
-$bg-muted-dark: #334155;
+.dark {
+  // Brand colors
+  --color-primary: #3b82f6;
+  --color-secondary: #facc15;
+  --color-accent: #22c55e;
+  --color-error: #ef4444;
+  --color-warning: #fbbf24;
 
-$text-primary-dark: #e0e7ff;
-$text-secondary-dark: #cbd5e1;
-$text-muted-dark: #94a3b8;
+  // Backgrounds
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-muted: #334155;
 
-$border-default-dark: #475569;
-$border-accent-dark: $color-primary-dark;
+  // Text colors
+  --text-primary: #e0e7ff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
 
-// Common colors
-$success-light: $color-accent-light;
-$error-light: $color-error-light;
-$warning-light: $color-warning-light;
-$info-light: $color-primary-light;
+  // Borders
+  --border-default: #475569;
+  --border-accent: var(--color-primary);
 
-$success-dark: $color-accent-dark;
-$error-dark: $color-error-dark;
-$warning-dark: $color-warning-dark;
-$info-dark: $color-primary-dark;
+  // Semantic
+  --success: var(--color-accent);
+  --error: var(--color-error);
+  --warning: var(--color-warning);
+  --info: var(--color-primary);
+}
