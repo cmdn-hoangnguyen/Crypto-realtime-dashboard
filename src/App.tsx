@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 
-import './styles.css';
 import './reset.css';
+import './styles.css';
 import appRoutes from './app/app.route';
 import { RouterOutlet } from './app/core/modules/custom-router-dom/RouterOutlet';
 
