@@ -1,50 +1,32 @@
-import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
 import { ENDPOINTS } from '../constants/api';
 import type { CoinMarket } from '../constants/type';
-import axiosInstance from '../libs/axios';
+import { fetcher } from '../libs/axios';
 
 interface Props {
-  currency?: string;
-  order?: string;
+  currency: string;
   totalItems: number;
   currentPage: number;
+  order?: string;
 }
 
 const useGetCoinMarket = ({
-  currency = 'usd',
+  currency,
   order = 'market_cap_desc',
   totalItems,
   currentPage,
 }: Props) => {
-  const [coins, setCoins] = useState<CoinMarket[]>();
-  const [loading, setLoading] = useState<boolean>(true);
+  const { data, isLoading } = useSWR<CoinMarket[]>(
+    `${ENDPOINTS.COINS_MARKET}?vs_currency=${currency}&order=${order}&per_page=${totalItems}&page=${currentPage}&sparkline=true&price_change_percentage=1h,24h,7d`,
+    fetcher,
+    {
+      dedupingInterval: 60000,
+      revalidateOnFocus: false,
+    }
+  );
 
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const response = await axiosInstance.get(ENDPOINTS.COINS_MARKET, {
-          params: {
-            vs_currency: currency,
-            order: order,
-            per_page: totalItems,
-            page: currentPage,
-          },
-        });
-
-        setCoins(response?.data);
-      } catch (error) {
-        console.error(error);
-        throw new Error('Fail to get coins market:');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetch();
-  }, [currency, currentPage, order, totalItems]);
-
-  return { coins, loading };
+  return { coins: data, coinsLoading: isLoading };
 };
 
 export default useGetCoinMarket;

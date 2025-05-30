@@ -19,7 +19,7 @@
   --text-primary: #111827;
   --text-secondary: #374151;
 
-  --border-default: #d1d5db;
+  --border-default: #e5e7eb;
   --border-accent: var(--color-primary);
 
   --success: var(--color-accent);
@@ -54,4 +54,10 @@
 
 html {
   font-family: 'Open Sans', sans-serif;
+}
+
+.table-head-item,
+.table-body-item {
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border-default);
 }

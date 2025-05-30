@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
 import { ENDPOINTS } from '../constants/api';
-import type { CoinMarketHistory } from '../constants/type';
-import axiosInstance from '../libs/axios';
+import { fetcher } from '../libs/axios';
 
 interface Props {
   coinId: string;
@@ -11,32 +10,16 @@ interface Props {
 }
 
 const useGetCoinMarketHistory = ({ coinId, currency = 'usd', days = 7 }: Props) => {
-  const [history, setHistory] = useState<CoinMarketHistory[] | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { data, isLoading } = useSWR(
+    `${ENDPOINTS.COINS}/${coinId}/market_chart?vs_currency=${currency}&days=${days}`,
+    fetcher,
+    {
+      dedupingInterval: 60000,
+      revalidateOnFocus: false,
+    }
+  );
 
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const response = await axiosInstance.get(`${ENDPOINTS.COINS}/${coinId}/market_chart`, {
-          params: {
-            vs_currency: currency,
-            days: days,
-          },
-        });
-
-        setHistory(response?.data);
-      } catch (error) {
-        console.error(error);
-        throw new Error('Failed to get coin price history');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetch();
-  }, [coinId, currency, days]);
-
-  return { history, loading };
+  return { history: data, coinMarketHistoryLoading: isLoading };
 };
 
 export default useGetCoinMarketHistory;

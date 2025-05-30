@@ -28,12 +28,18 @@ export interface CoinMarket {
     currency: string;
     percentage: number;
   };
+  sparkline_in_7d: {
+    price: number[];
+  };
+  price_change_percentage_1h_in_currency: number;
+  price_change_percentage_7d_in_currency: number;
   last_updated: string; // ISO Date
 }
 
-type TimeSeriesData = [timestamp: number, value: number];
+export type TimeSeriesData = [timestamp: number, value: number];
 
 export interface CoinMarketHistory {
   prices: TimeSeriesData[];
   market_caps: TimeSeriesData[];
+  total_volumes: TimeSeriesData[];
 }

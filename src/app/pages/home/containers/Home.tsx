@@ -1,67 +1,61 @@
-import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useState } from 'react';
+
+import clsx from 'clsx';
 
 import Container from '../../../../components/Container';
+import RenderTableCell from '../../../../components/RenderTableCell';
+import { coinMarketTable } from '../../../../constants/data';
+import { CURRENCY } from '../../../../constants/enum';
 import useGetCoinMarket from '../../../../hooks/useGetCoinMarket';
-import useGetCoinMarketHistory from '../../../../hooks/useGetCoinMarketHistory';
 
 const Home = () => {
-  const { coins, loading } = useGetCoinMarket({
-    totalItems: 10,
-    currentPage: 1,
+  const [currency] = useState(CURRENCY.USD);
+  const [itemsPerPage] = useState(30);
+  const [currentPage] = useState(1);
+
+  const { coins, coinsLoading } = useGetCoinMarket({
+    currency: currency,
+    totalItems: itemsPerPage,
+    currentPage: currentPage,
   });
 
-  const { history } = useGetCoinMarketHistory({ coinId: 'bitcoin' });
-
-  console.log(history);
-
-  if (loading) {
-    return <>Loading...</>;
+  if (coinsLoading) {
+    return <p>Loading...</p>;
   }
 
   return (
-    <main>
+    <main className="main-home">
       <Container>
-        <table>
-          <thead>
-            <tr>
-              <th>Fav</th>
-              <th>Coin</th>
-              <th>Price</th>
-              <th>24H %</th>
-              <th>24H volume</th>
-              <th>Last 7 Days</th>
-            </tr>
-          </thead>
+        <div className="flex flex-col gap-1">
+          <div className="table-actions flex gap-2"></div>
 
-          <tbody>
-            {coins?.map(data => (
-              <tr key={data?.id}>
-                <td>
-                  <button>
-                    <FontAwesomeIcon icon={farHeart} />
-                  </button>
-                </td>
-                <td>
-                  <div className="flex">
-                    <div className="max-w-12">
-                      <img src={data?.image} alt={data?.name} />
-                    </div>
-
-                    <div className="flex flex-col">
-                      <span>{data?.name}</span>
-                      <span className="uppercase">{data?.symbol}</span>
-                    </div>
-                  </div>
-                </td>
-                <td>{data.current_price}</td>
-                <td>{data?.price_change_percentage_24h}</td>
-                <td>{data?.total_volume}</td>
-                <td></td>
+          <table className="table w-full">
+            <thead className="table-head">
+              <tr className="table-head-item">
+                {coinMarketTable?.map(cell => (
+                  <th className={clsx('text-sm font-semibold p-2', cell.className)} key={cell?.id}>
+                    {cell?.headerLabel}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody className="table-body">
+              {coins?.map(coin => (
+                <tr className="table-body-item" key={coin?.id}>
+                  {coinMarketTable?.map((cell, cellIndex) => (
+                    <td
+                      className={clsx('table-body-item text-sm p-2', cell.className)}
+                      key={cell?.id}
+                    >
+                      <RenderTableCell data={coin} colIndex={cellIndex} currency={currency} />
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </Container>
     </main>
   );
