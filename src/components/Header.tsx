@@ -1,8 +1,9 @@
-import { faHeart, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Container from './Container';
 import RoundedItem from './RoundedItem';
+import SearchInput from './SearchInput';
 
 const Header = () => {
   return (
@@ -33,17 +34,7 @@ const Header = () => {
               </div>
             </a>
 
-            <form className="text-[var(--color-muted)] bg-[var(--bg-secondary)] p-2 rounded-md">
-              <i className="text-sm mr-1">
-                <FontAwesomeIcon icon={faSearch} />
-              </i>
-
-              <input
-                className="text-sm bg-transparent outline-none"
-                type="text"
-                placeholder="Search..."
-              />
-            </form>
+            <SearchInput classname="w-80" value="" onChange={() => {}} placeholder={'Search'} />
           </div>
         </div>
       </Container>

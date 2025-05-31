@@ -1,3 +1,5 @@
+import type { CURRENCY, SORT_VALUE } from './enum';
+
 export interface CoinMarket {
   id: string;
   symbol: string;
@@ -36,10 +38,29 @@ export interface CoinMarket {
   last_updated: string; // ISO Date
 }
 
+export interface CoinResearchResult {
+  id: string;
+  name: string;
+  api_symbol: string;
+  symbol: string;
+  market_cap_rank: number;
+  thumb: string;
+  large: string;
+}
+
 export type TimeSeriesData = [timestamp: number, value: number];
 
 export interface CoinMarketHistory {
   prices: TimeSeriesData[];
   market_caps: TimeSeriesData[];
   total_volumes: TimeSeriesData[];
+}
+
+export interface FetchDataProps {
+  currency: CURRENCY;
+  totalItems: number;
+  currentPage: number;
+  order?: SORT_VALUE;
+  id?: string;
+  arrayIds?: string[];
 }
