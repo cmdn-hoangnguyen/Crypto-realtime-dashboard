@@ -8,9 +8,11 @@
   --color-primary: #1e40af;
   --color-secondary: #facc15;
   --color-accent: #22c55e;
+  --color-accent-dark: #15803d;
   --color-error: #dc2626;
   --color-warning: #f59e0b;
   --color-muted: #6b7280;
+  --color-heart: #eb1e7d;
 
   --bg-primary: #ffffff;
   --bg-secondary: #f1f5f9;
@@ -21,11 +23,6 @@
 
   --border-default: #e5e7eb;
   --border-accent: var(--color-primary);
-
-  --success: var(--color-accent);
-  --error: var(--color-error);
-  --warning: var(--color-warning);
-  --info: var(--color-primary);
 }
 
 .dark {
@@ -45,11 +42,6 @@
 
   --border-default: #475569;
   --border-accent: var(--color-primary);
-
-  --success: var(--color-accent);
-  --error: var(--color-error);
-  --warning: var(--color-warning);
-  --info: var(--color-primary);
 }
 
 html {
@@ -60,4 +52,29 @@ html {
 .table-body-item {
   vertical-align: middle;
   border-bottom: 1px solid var(--border-default);
+}
+
+.btn-base {
+  @apply rounded-md p-2 text-sm font-medium transition-all duration-150 border;
+}
+
+.form-layout,
+.btn-variant-default,
+.btn-variant-success {
+  border: 1px solid var(--border-default);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border-default);
+  box-shadow: -1.5px 1.5px 0 1.5px var(--color-muted);
+}
+
+.btn-variant-success:hover {
+  border-color: var(--color-accent);
+  box-shadow: -1.5px 1.5px 0 1.5px var(--color-accent-dark);
+}
+
+.btn-variant-success:active,
+.btn-variant-success-active {
+  background-color: var(--color-accent);
+  box-shadow: -1px 1px 0 1px var(--color-accent-dark);
 }

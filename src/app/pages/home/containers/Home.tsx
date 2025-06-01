@@ -1,23 +1,50 @@
-import { useState } from 'react';
-
-import clsx from 'clsx';
+import { useState, type ChangeEventHandler } from 'react';
 
 import Container from '../../../../components/Container';
-import RenderTableCell from '../../../../components/RenderTableCell';
-import { coinMarketTable } from '../../../../constants/data';
-import { CURRENCY } from '../../../../constants/enum';
-import useGetCoinMarket from '../../../../hooks/useGetCoinMarket';
+import SearchInput from '../../../../components/SearchInput';
+import { coinMarketTable, SORT_OPTIONS } from '../../../../constants/data';
+import { BUTTON_VARIANT, CURRENCY, SORT_VALUE } from '../../../../constants/enum';
+import useDebounce from '../../../../hooks/useDebounce';
+import { Button } from '../../../../components/Button';
+import { CustomSelect } from '../../../../components/Select';
+import Pagination from '../../../../components/Pagination';
+import useCoinMarketController from '../../../../hooks/useCoinMarketController';
+import { Table } from '../../../../components/Table';
+import { TableTitle } from '../../../../components/TableTitle';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTableList } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
-  const [currency] = useState(CURRENCY.USD);
-  const [itemsPerPage] = useState(30);
-  const [currentPage] = useState(1);
+  const [currency, setCurrency] = useState(CURRENCY.USD);
+  const [sort] = useState(SORT_VALUE.MARKET_CAP_DESC);
+  const [itemsPerPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [inputValue, setInputValue] = useState<string>('');
+  const [isCurrencySelectOpen, setIsCurrencySelectOpen] = useState(false);
 
-  const { coins, coinsLoading } = useGetCoinMarket({
-    currency: currency,
-    totalItems: itemsPerPage,
-    currentPage: currentPage,
-  });
+  const debouncedInput = useDebounce({ value: inputValue });
+
+  const { displayedCoin, displayedCoinLength, coinsLoading, searchCoinLoading } =
+    useCoinMarketController({
+      debouncedInput: debouncedInput,
+      currency: currency,
+      currentPage: currentPage,
+      itemsPerPage: itemsPerPage,
+      order: sort,
+    });
+
+  const handleInputChange: ChangeEventHandler<HTMLInputElement> = event => {
+    setInputValue(event.target.value);
+  };
+
+  const handlePagination = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const currencyOptions = Object.values(CURRENCY).map(currency => ({
+    label: currency,
+    value: currency,
+  }));
 
   if (coinsLoading) {
     return <p>Loading...</p>;
@@ -27,34 +54,55 @@ const Home = () => {
     <main className="main-home">
       <Container>
         <div className="flex flex-col gap-1">
-          <div className="table-actions flex gap-2"></div>
+          <TableTitle
+            label={
+              <span className="flex gap-2">
+                Crypto by {SORT_OPTIONS[sort]}
+                <i className="">
+                  <FontAwesomeIcon icon={faTableList} />
+                </i>
+              </span>
+            }
+          />
 
-          <table className="table w-full">
-            <thead className="table-head">
-              <tr className="table-head-item">
-                {coinMarketTable?.map(cell => (
-                  <th className={clsx('text-sm font-semibold p-2', cell.className)} key={cell?.id}>
-                    {cell?.headerLabel}
-                  </th>
-                ))}
-              </tr>
-            </thead>
+          <div className="table-actions flex gap-2">
+            <SearchInput
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder="Search coin..."
+              isLoading={searchCoinLoading}
+            />
 
-            <tbody className="table-body">
-              {coins?.map(coin => (
-                <tr className="table-body-item" key={coin?.id}>
-                  {coinMarketTable?.map((cell, cellIndex) => (
-                    <td
-                      className={clsx('table-body-item text-sm p-2', cell.className)}
-                      key={cell?.id}
-                    >
-                      <RenderTableCell data={coin} colIndex={cellIndex} currency={currency} />
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            <Button
+              variant={BUTTON_VARIANT.SUCCESS}
+              label={
+                <CustomSelect
+                  value={currency}
+                  onChange={setCurrency}
+                  options={currencyOptions}
+                  isOpen={isCurrencySelectOpen}
+                  setIsOpen={setIsCurrencySelectOpen}
+                />
+              }
+              onClick={() => setIsCurrencySelectOpen(true)}
+            />
+          </div>
+
+          <Table
+            classname="mb-6"
+            data={displayedCoin}
+            template={coinMarketTable}
+            currency={currency}
+          />
+
+          <Pagination
+            dataLength={displayedCoinLength ?? 0}
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+            onPaginationClick={(page: number) => {
+              handlePagination(page);
+            }}
+          />
         </div>
       </Container>
     </main>

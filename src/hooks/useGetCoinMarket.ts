@@ -1,24 +1,18 @@
 import useSWR from 'swr';
 
-import { ENDPOINTS } from '../constants/api';
-import type { CoinMarket } from '../constants/type';
+import { endpointGetAllCoinMarketLimitInfo, endpointGetCoinMarket } from '../constants/api';
+import type { CoinMarket, FetchDataProps } from '../constants/type';
 import { fetcher } from '../libs/axios';
-
-interface Props {
-  currency: string;
-  totalItems: number;
-  currentPage: number;
-  order?: string;
-}
+import { SORT_VALUE } from '../constants/enum';
 
 const useGetCoinMarket = ({
   currency,
-  order = 'market_cap_desc',
+  order = SORT_VALUE.MARKET_CAP_DESC,
   totalItems,
   currentPage,
-}: Props) => {
+}: FetchDataProps) => {
   const { data, isLoading } = useSWR<CoinMarket[]>(
-    `${ENDPOINTS.COINS_MARKET}?vs_currency=${currency}&order=${order}&per_page=${totalItems}&page=${currentPage}&sparkline=true&price_change_percentage=1h,24h,7d`,
+    endpointGetCoinMarket({ currency, order, totalItems, currentPage }),
     fetcher,
     {
       dedupingInterval: 60000,
@@ -26,7 +20,16 @@ const useGetCoinMarket = ({
     }
   );
 
-  return { coins: data, coinsLoading: isLoading };
+  const { data: limitInfoData } = useSWR<CoinMarket[]>(
+    endpointGetAllCoinMarketLimitInfo(),
+    fetcher,
+    {
+      dedupingInterval: 60000,
+      revalidateOnFocus: false,
+    }
+  );
+
+  return { coins: data, coinsLoading: isLoading, coinsLength: limitInfoData?.length };
 };
 
 export default useGetCoinMarket;

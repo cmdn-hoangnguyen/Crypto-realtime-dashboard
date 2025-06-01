@@ -1,17 +1,23 @@
 import useSWR from 'swr';
 
-import { ENDPOINTS } from '../constants/api';
+import { endpointGetCoinHistory } from '../constants/api';
 import { fetcher } from '../libs/axios';
+import { CURRENCY } from '../constants/enum';
+import type { CoinMarketHistory } from '../constants/type';
 
 interface Props {
   coinId: string;
-  currency?: string;
+  currency?: CURRENCY;
   days?: number;
 }
 
-const useGetCoinMarketHistory = ({ coinId, currency = 'usd', days = 7 }: Props) => {
-  const { data, isLoading } = useSWR(
-    `${ENDPOINTS.COINS}/${coinId}/market_chart?vs_currency=${currency}&days=${days}`,
+const useGetCoinMarketHistory = ({ coinId, currency = CURRENCY.USD, days = 7 }: Props) => {
+  const { data, isLoading } = useSWR<CoinMarketHistory>(
+    endpointGetCoinHistory({
+      coinId: coinId,
+      currency: currency,
+      days: days,
+    }),
     fetcher,
     {
       dedupingInterval: 60000,
@@ -19,7 +25,13 @@ const useGetCoinMarketHistory = ({ coinId, currency = 'usd', days = 7 }: Props) 
     }
   );
 
-  return { history: data, coinMarketHistoryLoading: isLoading };
+  const formattedPrices = data?.prices.map((price: [number, number]) => ({
+    timestamp: price[0],
+    time: new Date(price[0]).toLocaleDateString(),
+    price: price[1],
+  }));
+
+  return { priceHistory: formattedPrices, coinMarketHistoryLoading: isLoading };
 };
 
 export default useGetCoinMarketHistory;

@@ -1,3 +1,5 @@
+import type { CURRENCY, HEADER_LABEL, SORT_VALUE } from './enum';
+
 export interface CoinMarket {
   id: string;
   symbol: string;
@@ -28,12 +30,64 @@ export interface CoinMarket {
     currency: string;
     percentage: number;
   };
-  sparkline_in_7d: {
+  sparkline_in_7d?: {
     price: number[];
   };
-  price_change_percentage_1h_in_currency: number;
-  price_change_percentage_7d_in_currency: number;
-  last_updated: string; // ISO Date
+  price_change_percentage_1h_in_currency?: number;
+  price_change_percentage_7d_in_currency?: number;
+  last_updated?: string; // ISO Date
+}
+
+export interface CoinResearchResult {
+  id: string;
+  name: string;
+  api_symbol: string;
+  symbol: string;
+  market_cap_rank: number;
+  thumb: string;
+  large: string;
+}
+
+export interface CoinHistory {
+  id: string;
+  symbol: string;
+  name: string;
+  localization?: Record<string, string>;
+  image?: {
+    thumb: string;
+    small: string;
+  };
+  market_data?: {
+    current_price?: Record<string, number>;
+    market_cap?: Record<string, number>;
+    total_volume?: Record<string, number>;
+  };
+  community_data?: {
+    facebook_likes?: number | null;
+    twitter_followers?: number | null;
+    reddit_average_posts_48h?: number | null;
+    reddit_average_comments_48h?: number | null;
+    reddit_subscribers?: number | null;
+    reddit_accounts_active_48h?: number | null;
+  };
+  developer_data?: {
+    forks?: number | null;
+    stars?: number | null;
+    subscribers?: number | null;
+    total_issues?: number | null;
+    closed_issues?: number | null;
+    pull_requests_merged?: number | null;
+    pull_request_contributors?: number | null;
+    code_additions_deletions_4_weeks?: {
+      additions?: number | null;
+      deletions?: number | null;
+    };
+    commit_count_4_weeks?: number | null;
+  };
+  public_interest_stats?: {
+    alexa_rank?: number | null;
+    bing_matches?: number | null;
+  };
 }
 
 export type TimeSeriesData = [timestamp: number, value: number];
@@ -42,4 +96,19 @@ export interface CoinMarketHistory {
   prices: TimeSeriesData[];
   market_caps: TimeSeriesData[];
   total_volumes: TimeSeriesData[];
+}
+
+export interface FetchDataProps {
+  currency: CURRENCY;
+  totalItems: number;
+  currentPage: number;
+  order?: SORT_VALUE;
+  id?: string;
+  arrayIds?: string[];
+}
+
+export interface tableTemplate {
+  id: number;
+  headerLabel: HEADER_LABEL;
+  classname: string;
 }
