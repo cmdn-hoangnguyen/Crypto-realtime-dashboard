@@ -13,6 +13,10 @@ export const endpointGetAllCoinMarket = ({ currency }: { currency: CURRENCY }) =
   return `${ENDPOINTS.COINS_MARKET}${ENDPOINTS.WEEK_DETAIL_INFO}&vs_currency=${currency}`;
 };
 
+export const endpointGetAllCoinMarketLimitInfo = () => {
+  return `${ENDPOINTS.COINS_MARKET}vs_currency=usd`;
+};
+
 export const endpointGetCoinMarket = ({
   currency,
   order,
@@ -45,4 +49,17 @@ export const endpointSearchDetailCoinMarket = ({
 
 export const endpointSearchAllGeneralCoinById = ({ input }: { input: string }) => {
   return `${ENDPOINTS.SEARCH_GENERAL_COINS_INFO}${input}`;
+};
+
+// CHART
+export const endpointGetCoinHistory = ({
+  coinId,
+  currency,
+  days,
+}: {
+  coinId: string;
+  currency: CURRENCY;
+  days: number;
+}) => {
+  return `${ENDPOINTS.COINS}/${coinId}/market_chart?vs_currency=${currency}&days=${days}`;
 };

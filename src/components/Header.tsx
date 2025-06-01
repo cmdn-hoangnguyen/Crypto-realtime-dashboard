@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Container from './Container';
 import RoundedItem from './RoundedItem';
 import SearchInput from './SearchInput';
+import { Button } from './Button';
 
 const Header = () => {
   return (
@@ -25,13 +26,18 @@ const Header = () => {
           </a>
 
           <div className="flex items-center gap-4">
-            <a className="text-sm" href="/favorite/#">
-              <div className="flex items-center gap-1">
-                <i className="text-[var(--color-error)]">
-                  <FontAwesomeIcon icon={faHeart} />
-                </i>
-                <span className="font-semibold">Favorite</span>
-              </div>
+            <a className="text-sm" href="/favorite/">
+              <Button
+                label={
+                  <div className="flex items-center gap-1">
+                    <i className="text-[var(--color-heart)]">
+                      <FontAwesomeIcon icon={faHeart} />
+                    </i>
+                    <span className="font-semibold">Favorite</span>
+                  </div>
+                }
+                onClick={() => {}}
+              />
             </a>
 
             <SearchInput classname="w-80" value="" onChange={() => {}} placeholder={'Search'} />

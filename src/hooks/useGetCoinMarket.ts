@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-import { endpointGetCoinMarket } from '../constants/api';
+import { endpointGetAllCoinMarketLimitInfo, endpointGetCoinMarket } from '../constants/api';
 import type { CoinMarket, FetchDataProps } from '../constants/type';
 import { fetcher } from '../libs/axios';
 import { SORT_VALUE } from '../constants/enum';
@@ -20,7 +20,16 @@ const useGetCoinMarket = ({
     }
   );
 
-  return { coins: data, coinsLoading: isLoading };
+  const { data: limitInfoData } = useSWR<CoinMarket[]>(
+    endpointGetAllCoinMarketLimitInfo(),
+    fetcher,
+    {
+      dedupingInterval: 60000,
+      revalidateOnFocus: false,
+    }
+  );
+
+  return { coins: data, coinsLoading: isLoading, coinsLength: limitInfoData?.length };
 };
 
 export default useGetCoinMarket;

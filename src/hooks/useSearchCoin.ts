@@ -65,7 +65,11 @@ const useSearchCoin = (props: Props) => {
     }
   );
 
-  return { coinList: marketData ?? [], searchCoinLoading: marketLoading };
+  return {
+    coinList: marketData ?? [],
+    searchCoinLoading: marketLoading,
+    searchCoinLength: marketData?.length,
+  };
 };
 
 export default useSearchCoin;

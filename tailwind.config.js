@@ -46,4 +46,11 @@ export default {
     },
   },
   plugins: [],
+  safelist: [
+    'btn-base',
+    'btn-variant-default',
+    'btn-variant-default-active',
+    'btn-variant-success',
+    'btn-variant-success-active',
+  ],
 };
