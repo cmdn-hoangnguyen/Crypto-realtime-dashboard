@@ -1,15 +1,23 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from './Button';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import clsx from 'clsx';
 
 interface Props {
   dataLength: number;
   currentPage: number;
   itemsPerPage: number;
   onPaginationClick: (page: number) => void;
+  classname?: string;
 }
 
-const Pagination = ({ dataLength, currentPage, itemsPerPage, onPaginationClick }: Props) => {
+const Pagination = ({
+  dataLength,
+  currentPage,
+  itemsPerPage,
+  onPaginationClick,
+  classname,
+}: Props) => {
   const lastPage = Math.ceil(dataLength / itemsPerPage);
 
   const getPageList = (): (number | '...')[] => {
@@ -47,7 +55,7 @@ const Pagination = ({ dataLength, currentPage, itemsPerPage, onPaginationClick }
   };
 
   return (
-    <ul className="flex gap-2 items-center m-auto w-fit">
+    <ul className={clsx(classname, 'flex gap-2 items-center m-auto w-fit')}>
       <li className={paginateButtonStyle} onClick={handlePrevPage}>
         <i>
           <FontAwesomeIcon icon={faChevronLeft} />

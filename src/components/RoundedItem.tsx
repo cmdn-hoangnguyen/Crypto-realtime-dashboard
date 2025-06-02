@@ -9,7 +9,11 @@ interface Props {
 }
 
 const RoundedItem = ({ content, classname = '', isBordered = false }: Props) => {
-  const classes = clsx('rounded-full p-1', classname, isBordered && 'border');
+  const classes = clsx(
+    'rounded-full flex justify-center items-center',
+    classname,
+    isBordered && 'border'
+  );
 
   return <span className={classes}>{content}</span>;
 };

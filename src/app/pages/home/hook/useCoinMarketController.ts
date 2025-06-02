@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import type { CURRENCY, SORT_VALUE } from '../constants/enum';
-import useGetCoinMarket from './useGetCoinMarket';
-import useSearchCoin from './useSearchCoin';
+import type { CURRENCY, SORT_VALUE } from '../../../../constants/enum';
+import useGetCoinMarket from '../../../../hooks/useGetCoinMarket';
+import useSearchCoin from '../../../../hooks/useSearchCoin';
 
 interface Props {
   debouncedInput: string;

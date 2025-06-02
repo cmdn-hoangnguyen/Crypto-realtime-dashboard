@@ -1,5 +1,7 @@
 import { useRef, useEffect } from 'react';
 import clsx from 'clsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 export interface Option<T> {
   label: string;
@@ -15,7 +17,7 @@ interface Props<T> {
   className?: string;
 }
 
-export function CustomSelect<T extends string>({
+export function CustomSelect<T>({
   value,
   options,
   onChange,
@@ -34,33 +36,39 @@ export function CustomSelect<T extends string>({
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }, [setIsOpen]);
+
+  const handleOptionClick = (optionValue: T) => {
+    onChange(optionValue);
+    setTimeout(() => setIsOpen(false), 0);
+  };
 
   return (
-    <div className={clsx('relative w-14 text-sm', className)} ref={selectRef}>
+    <div className={clsx('relative w-12 text-sm z-20', className)} ref={selectRef}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="w-full text-center uppercase rounded-md"
       >
         {selected?.label}
+        <i className="ml-1">
+          <FontAwesomeIcon icon={faAngleDown} />
+        </i>
       </button>
 
       {isOpen && (
-        <ul className="absolute min-w-14 z-10 w-full rounded-md bg-white overflow-hidden">
-          {options.map(option => (
+        <ul className="absolute z-10 mt-4 w-full rounded-md bg-white shadow-md overflow-hidden border">
+          {options.map((option, index) => (
             <li
-              className={clsx(
-                'cursor-pointer px-2 py-2 text-[var(--text-primary)] uppercase hover:bg-indigo-100',
-                option.value === value && 'bg-indigo-100 font-medium'
-              )}
-              key={option.value}
+              key={index}
               onClick={() => {
-                onChange(option.value);
-                setIsOpen(false);
+                handleOptionClick(option.value);
               }}
+              className={clsx(
+                'cursor-pointer px-2 py-2 uppercase hover:bg-indigo-100',
+                option.value === value && 'bg-indigo-100'
+              )}
             >
               {option.label}
             </li>
