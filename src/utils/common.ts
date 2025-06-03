@@ -1,4 +1,4 @@
-import { BUTTON_VARIANT, BUTTON_VARIANT_ACTIVE, CURRENCY } from '../constants/enum';
+import { CURRENCY } from '../constants/enum';
 
 export const getColorByValue = (value: number) => {
   return value > 0 ? '#22c55e' : '#dc2626';
@@ -9,7 +9,7 @@ export const getCurrency = (currency: CURRENCY) => {
     case CURRENCY.USD:
       return '$';
     case CURRENCY.VN:
-      return 'VND';
+      return 'đ';
     default:
       return '$';
   }
@@ -29,13 +29,42 @@ export const formatValue = (value: number, decimalPlaces = 2) => {
   return decimalPart ? `${formattedInt}.${decimalPart}` : formattedInt;
 };
 
-export const getActiveButtonClass = (variant: BUTTON_VARIANT): string | undefined => {
-  switch (variant) {
-    case BUTTON_VARIANT.DEFAULT:
-      return BUTTON_VARIANT_ACTIVE.DEFAULT;
-    case BUTTON_VARIANT.SUCCESS:
-      return BUTTON_VARIANT_ACTIVE.SUCCESS;
-    default:
-      return undefined;
+export const formatHugeNumber = (value: number, digits: number = 2): string => {
+  if (value === null || value === undefined || isNaN(value)) return '-';
+
+  const units = [
+    { suffix: 'T', value: 1_000_000_000_000 },
+    { suffix: 'B', value: 1_000_000_000 },
+    { suffix: 'M', value: 1_000_000 },
+    { suffix: 'K', value: 1_000 },
+  ];
+
+  for (const unit of units) {
+    if (value >= unit.value) {
+      return formatValue(value / unit.value) + unit.suffix;
+    }
   }
+
+  return value.toFixed(digits);
+};
+
+export const renderParagraph = (input: string) => {
+  return input.replace(/\r?\n/g, '');
+};
+
+export const hexToRGBA = (hex: string, alpha: number) => {
+  let r = 0,
+    g = 0,
+    b = 0;
+
+  if (hex.length === 4) {
+    r = parseInt(hex[1] + hex[1], 16);
+    g = parseInt(hex[2] + hex[2], 16);
+    b = parseInt(hex[3] + hex[3], 16);
+  } else if (hex.length === 7) {
+    r = parseInt(hex[1] + hex[2], 16);
+    g = parseInt(hex[3] + hex[4], 16);
+    b = parseInt(hex[5] + hex[6], 16);
+  }
+  return `rgba(${r},${g},${b},${alpha})`;
 };

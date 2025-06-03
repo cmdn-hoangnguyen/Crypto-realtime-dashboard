@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import type { JSX } from 'react';
 import { BUTTON_VARIANT } from '../constants/enum';
-import { getActiveButtonClass } from '../utils/common';
 
 interface Props {
   label: string | JSX.Element;
@@ -20,7 +19,7 @@ export const Button = ({
 }: Props) => {
   return (
     <button
-      className={clsx('btn-base', isActive && getActiveButtonClass(variant), classname, variant)}
+      className={clsx('btn-base min-w-10', isActive && 'btn-base-active', classname, variant)}
       onClick={onClick}
     >
       {label}

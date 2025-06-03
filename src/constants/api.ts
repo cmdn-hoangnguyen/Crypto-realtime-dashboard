@@ -4,8 +4,15 @@ import type { FetchDataProps } from './type';
 export const ENDPOINTS = {
   COINS: '/coins',
   COINS_MARKET: '/coins/markets?',
+  SEARCH_TRENDING: '/search/trending',
   SEARCH_GENERAL_COINS_INFO: '/search?query=',
   WEEK_DETAIL_INFO: 'sparkline=true&price_change_percentage=1h,24h,7d',
+  GLOBAL: '/global',
+};
+
+// GET GLOBAL
+export const endpointGetGlobalMarket = () => {
+  return `${ENDPOINTS.GLOBAL}`;
 };
 
 // GET ENDPOINT
@@ -62,4 +69,19 @@ export const endpointGetCoinHistory = ({
   days: number;
 }) => {
   return `${ENDPOINTS.COINS}/${coinId}/market_chart?vs_currency=${currency}&days=${days}`;
+};
+
+export const endpointGetSingleCoinHistory = ({
+  coinId,
+  currency,
+}: {
+  coinId: string;
+  currency: CURRENCY;
+}) => {
+  return `${ENDPOINTS.COINS}/${coinId}?vs_currency=${currency}`;
+};
+
+// TRENDING
+export const endpointGetTrend = () => {
+  return `${ENDPOINTS.SEARCH_TRENDING}`;
 };

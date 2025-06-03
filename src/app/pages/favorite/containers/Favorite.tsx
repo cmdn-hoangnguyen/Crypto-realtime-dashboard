@@ -26,6 +26,7 @@ const Favorite = () => {
     <main>
       <Container>
         <TableTitle
+          classname="mb-8"
           label={
             <span className="flex gap-2">
               My favorite by {SORT_OPTIONS[sort]}

@@ -1,9 +1,9 @@
 import useSWR from 'swr';
 
-import { endpointGetCoinHistory } from '../constants/api';
+import { endpointGetCoinHistory, endpointGetSingleCoinHistory } from '../constants/api';
 import { fetcher } from '../libs/axios';
 import { CURRENCY } from '../constants/enum';
-import type { CoinMarketHistory } from '../constants/type';
+import type { CoinHistory, CoinMarketHistory } from '../constants/type';
 
 interface Props {
   coinId: string;
@@ -27,11 +27,28 @@ const useGetCoinMarketHistory = ({ coinId, currency = CURRENCY.USD, days = 7 }: 
 
   const formattedPrices = data?.prices.map((price: [number, number]) => ({
     timestamp: price[0],
-    time: new Date(price[0]).toLocaleDateString(),
+    time: new Date(price[0]).toLocaleDateString('en-US', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    }),
     price: price[1],
   }));
 
-  return { priceHistory: formattedPrices, coinMarketHistoryLoading: isLoading };
+  const { data: detailCoinHistory } = useSWR<CoinHistory>(
+    endpointGetSingleCoinHistory({ coinId: coinId, currency: currency }),
+    fetcher,
+    {
+      dedupingInterval: 60000,
+      revalidateOnFocus: false,
+    }
+  );
+
+  return {
+    detailHistory: detailCoinHistory,
+    priceHistory: formattedPrices,
+    coinMarketHistoryLoading: isLoading,
+  };
 };
 
 export default useGetCoinMarketHistory;

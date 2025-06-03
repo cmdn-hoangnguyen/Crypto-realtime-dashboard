@@ -41,8 +41,6 @@ const RenderTableCell = ({ headerLabel, data, currency }: Props) => {
     updateFavoriteList(updatedFavorites);
   };
 
-  // DETAIL PAGE ACTION
-
   const renderCellContent = () => {
     switch (headerLabel) {
       case HEADER_LABEL.FAV:
@@ -86,7 +84,7 @@ const RenderTableCell = ({ headerLabel, data, currency }: Props) => {
 
               <div className="flex flex-col col-span-5 ml-2">
                 <span className="truncate">{data?.name}</span>
-                <span className="uppercase">{data?.symbol}</span>
+                <span className="uppercase text-[var(--color-muted)]">{data?.symbol}</span>
               </div>
             </div>
           </a>

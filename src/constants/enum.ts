@@ -3,6 +3,10 @@ export enum CURRENCY {
   VN = 'vnd',
 }
 
+export enum LANGUAGE {
+  en = 'en',
+}
+
 export enum SORT_VALUE {
   MARKET_CAP_DESC = 'market_cap_desc',
   MARKET_CAP_ASC = 'market_cap_asc',
@@ -21,11 +25,15 @@ export enum SORT_VALUE {
 export enum BUTTON_VARIANT {
   DEFAULT = 'btn-variant-default',
   SUCCESS = 'btn-variant-success',
+  PRIMARY = 'btn-variant-primary',
+  HEART = 'btn-variant-heart',
 }
 
-export enum BUTTON_VARIANT_ACTIVE {
-  DEFAULT = `${BUTTON_VARIANT.DEFAULT}-active`,
-  SUCCESS = `${BUTTON_VARIANT.SUCCESS}-active`,
+export enum BADGE_VARIANT {
+  PRIMARY = 'badge-variant-primary',
+  SECONDARY = 'badge-variant-secondary',
+  INFO = 'badge-variant-info',
+  ERROR = 'badge-variant-error',
 }
 
 export enum HEADER_LABEL {
@@ -48,4 +56,9 @@ export enum LOCAL_STORAGE_KEY {
 export enum PATHNAME {
   DETAIL = 'detail',
   FAVORITE = 'favorite',
+}
+
+export enum DETAIL_INFO {
+  MARKET = 'market',
+  COIN = 'coin',
 }
