@@ -11,7 +11,7 @@ const useGetCoinMarket = ({
   totalItems,
   currentPage,
 }: FetchDataProps) => {
-  const { data, isLoading } = useSWR<CoinMarket[]>(
+  const { data, isLoading, mutate } = useSWR<CoinMarket[]>(
     endpointGetCoinMarket({ currency, order, totalItems, currentPage }),
     fetcher,
     {
@@ -29,7 +29,9 @@ const useGetCoinMarket = ({
     }
   );
 
-  return { coins: data, coinsLoading: isLoading, coinsLength: limitInfoData?.length };
+  const refetch = () => mutate();
+
+  return { coins: data, coinsLoading: isLoading, coinsLength: limitInfoData?.length, refetch };
 };
 
 export default useGetCoinMarket;

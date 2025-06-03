@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import type { CURRENCY, SORT_VALUE } from '../../../../constants/enum';
 import useGetCoinMarket from '../../../../hooks/useGetCoinMarket';
 import useSearchCoin from '../../../../hooks/useSearchCoin';
@@ -20,7 +20,7 @@ const useCoinMarketController = ({
 }: Props) => {
   const hasSearch = useMemo(() => debouncedInput.length > 2, [debouncedInput]);
 
-  const { coins, coinsLoading, coinsLength } = useGetCoinMarket({
+  const { coins, coinsLoading, coinsLength, refetch } = useGetCoinMarket({
     currency: currency,
     currentPage: currentPage,
     totalItems: itemsPerPage,
@@ -42,6 +42,16 @@ const useCoinMarketController = ({
     totalItems: itemsPerPage,
     isGetAll: true,
   });
+
+  useEffect(() => {
+    if (hasSearch) return;
+
+    const interval = setInterval(() => {
+      refetch();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [hasSearch, refetch]);
 
   const displayedCoin = hasSearch ? coinList : (coins ?? []);
   const displayedCoinLength = hasSearch ? searchCoinLength : (coinsLength ?? 0);

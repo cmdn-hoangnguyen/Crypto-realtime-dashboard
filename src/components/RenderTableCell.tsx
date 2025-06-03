@@ -9,6 +9,7 @@ import { formatValue, getCurrency } from '../utils/common';
 import { faHeart, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import { useEffect, useState } from 'react';
+import { FlashColor } from './FlashColor';
 
 interface Props {
   headerLabel: HEADER_LABEL;
@@ -93,8 +94,7 @@ const RenderTableCell = ({ headerLabel, data, currency }: Props) => {
       case HEADER_LABEL.PRICE:
         return (
           <div className="table-body-item-cell">
-            <span>{getCurrency(currency)}</span>
-            <span>{formatValue(data?.current_price)}</span>
+            <FlashColor price={data?.current_price} currency={currency} />
           </div>
         );
 
