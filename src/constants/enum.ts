@@ -24,9 +24,10 @@ export enum SORT_VALUE {
 
 export enum BUTTON_VARIANT {
   DEFAULT = 'btn-variant-default',
-  SUCCESS = 'btn-variant-success',
+  ACCENT = 'btn-variant-accent',
   PRIMARY = 'btn-variant-primary',
   HEART = 'btn-variant-heart',
+  INFO = 'btn-variant-info',
 }
 
 export enum BADGE_VARIANT {

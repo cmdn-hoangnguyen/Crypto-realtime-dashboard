@@ -12,6 +12,7 @@ import { DetailInfoList } from './components/DetailInfoList';
 import { useGetDetailMarketInfo } from '../hooks/useGetMarketInfo';
 import { useGetCoinInfo } from '../hooks/useGetCoinInfo';
 import { DetailPriceChange } from './components/DetailPriceChange';
+import { Paper } from '../../../../components/Paper';
 
 const DetailCrypto = () => {
   const [currency] = useState<CURRENCY>(CURRENCY.USD);
@@ -44,11 +45,46 @@ const DetailCrypto = () => {
     return { priceChange, color };
   };
 
+  const renderDetailInfoList = [
+    {
+      data: (() => {
+        return (
+          <>
+            {marketInfo && (
+              <DetailInfoList<number>
+                title="Market info"
+                data={marketInfo}
+                currency={currency}
+                detailInfo={DETAIL_INFO.MARKET}
+              />
+            )}
+          </>
+        );
+      })(),
+    },
+    {
+      data: (() => {
+        return (
+          <>
+            {coinInfo && (
+              <DetailInfoList<string>
+                title="Coin info"
+                data={coinInfo}
+                currency={currency}
+                detailInfo={DETAIL_INFO.COIN}
+              />
+            )}
+          </>
+        );
+      })(),
+    },
+  ];
+
   return (
-    <main>
+    <main className="detail-main pt-20">
       <Container>
-        <div className="grid grid-cols-12">
-          <div className="col-span-4 pr-12 border-r border-solid border-[var(--border-default)]">
+        <div className="grid grid-cols-12 xl:gap-0 gap-y-12">
+          <section className="xl:col-span-4 col-span-12 xl:pr-12 xl:border-r xl:border-solid xl:border-[var(--border-default)]">
             <div className="flex flex-col gap-4">
               <h2 className="flex items-start gap-2">
                 <div className="max-w-8">
@@ -56,9 +92,11 @@ const DetailCrypto = () => {
                 </div>
 
                 <span className="flex flex-col">
-                  <span className="font-bold">{detailHistory?.name}</span>
+                  <span className="text-[var(--text-primary)] font-bold">
+                    {detailHistory?.name}
+                  </span>
 
-                  <span className="text-[var(--color-muted)] uppercase flex gap-2">
+                  <span className="text-[var(--text-secondary)] text-sm uppercase flex gap-2">
                     {detailHistory?.symbol}
                     <ValueDirection value={getDataByCondition()?.priceChange ?? 0} />
                   </span>
@@ -66,45 +104,37 @@ const DetailCrypto = () => {
               </h2>
 
               <strong className="text-4xl">
-                <span>{getCurrency(currency)}</span>
-                <span>
+                <span className="text-[var(--text-primary)]">{getCurrency(currency)}</span>
+                <span className="text-[var(--text-primary)]">
                   {formatValue(detailHistory?.market_data?.current_price?.[currency] ?? 0)}
                 </span>
               </strong>
 
-              {marketInfo && (
-                <DetailInfoList<number>
-                  title="Market info"
-                  data={marketInfo}
-                  currency={currency}
-                  detailInfo={DETAIL_INFO.MARKET}
-                />
-              )}
-
-              {coinInfo && (
-                <DetailInfoList<string>
-                  title="Coin info"
-                  data={coinInfo}
-                  currency={currency}
-                  detailInfo={DETAIL_INFO.COIN}
-                />
-              )}
-            </div>
-          </div>
-
-          <div className="col-span-8 pl-12">
-            <div className="flex items-center justify-between">
-              <ul className="flex gap-2 mb-6">
-                {dayOptions?.map(option => (
-                  <li key={option?.value}>
-                    <Button
-                      label={option?.label}
-                      isActive={days === option.value}
-                      onClick={() => setDays(option?.value)}
-                    />
-                  </li>
+              <div className="grid grid-cols-12 gap-6">
+                {renderDetailInfoList?.map((item, index) => (
+                  <Paper className="xl:col-span-12 md:col-span-6 col-span-12 h-fit" key={index}>
+                    {item?.data}
+                  </Paper>
                 ))}
-              </ul>
+              </div>
+            </div>
+          </section>
+
+          <section className="xl:col-span-8 col-span-12 xl:pl-12">
+            <div className="flex items-center justify-between">
+              <Paper className="w-full mb-6">
+                <ul className="flex gap-2">
+                  {dayOptions?.map(option => (
+                    <li key={option?.value}>
+                      <Button
+                        label={option?.label}
+                        isActive={days === option.value}
+                        onClick={() => setDays(option?.value)}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </Paper>
             </div>
 
             {detailHistory && (
@@ -120,7 +150,7 @@ const DetailCrypto = () => {
             )}
 
             {/* {detailHistory?.description?.[LANGUAGE.en]} */}
-          </div>
+          </section>
         </div>
       </Container>
     </main>

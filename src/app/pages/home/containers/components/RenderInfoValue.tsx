@@ -10,10 +10,12 @@ interface Props<T> {
 export const RenderInfoValue = <T,>({ data, renderItem, title }: Props<T>) => {
   return (
     <Paper className="flex flex-col gap-2">
-      <h3 className="font-semibold uppercase mb-2">{title}</h3>
+      <h3 className="text-[var(--text-primary)] font-semibold uppercase h-8 flex items-center">
+        {title}
+      </h3>
 
       {data?.map((item, index) => (
-        <div className="bg-[var(--bg-primary)] p-4 rounded-md" key={index}>
+        <div className="bg-[var(--bg-primary)] px-4 py-2 rounded-md" key={index}>
           {renderItem(item, index)}
         </div>
       ))}

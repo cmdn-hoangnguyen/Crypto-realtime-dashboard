@@ -8,7 +8,7 @@ import { RouterOutlet } from './app/core/modules/custom-router-dom/RouterOutlet'
 function App() {
   return (
     <BrowserRouter>
-      <div className="app">
+      <div className="app bg-[var(--bg-primary)]">
         <RouterOutlet routes={appRoutes} />
       </div>
     </BrowserRouter>

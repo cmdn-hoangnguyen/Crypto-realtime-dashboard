@@ -7,5 +7,5 @@ interface Props {
 }
 
 export const TableTitle = ({ label, classname }: Props) => {
-  return <h2 className={clsx('text-2xl font-bold', classname)}>{label}</h2>;
+  return <h3 className={clsx('text-xl font-bold', classname)}>{label}</h3>;
 };

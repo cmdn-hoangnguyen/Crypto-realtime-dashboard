@@ -99,7 +99,7 @@ const DetailChart = ({ priceHistory, currency, color }: Props) => {
     },
   };
 
-  return <Line data={chartData} options={chartOptions} />;
+  return <Line data={chartData} options={chartOptions} className="min-h-[200px]" />;
 };
 
 export default DetailChart;

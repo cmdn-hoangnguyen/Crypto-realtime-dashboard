@@ -77,13 +77,13 @@ const RenderTableCell = ({ headerLabel, data, currency }: Props) => {
       case HEADER_LABEL.COIN:
         return (
           <a className="table-body-item-cell" href={`/${PATHNAME.DETAIL}/${data?.id}`}>
-            <div className="grid grid-cols-6 items-center">
-              <div className="min-h-8 col-span-1">
+            <div className="flex items-center">
+              <div className="h-12 min-w-12">
                 <img className="w-full h-full" src={data?.image} alt={data?.name} />
               </div>
 
-              <div className="flex flex-col col-span-5 ml-2">
-                <span className="truncate">{data?.name}</span>
+              <div className="flex flex-col ml-2">
+                <span className="truncate max-w-20">{data?.name}</span>
                 <span className="uppercase text-[var(--color-muted)]">{data?.symbol}</span>
               </div>
             </div>
@@ -142,6 +142,7 @@ const RenderTableCell = ({ headerLabel, data, currency }: Props) => {
               <LineChart
                 prices={data?.sparkline_in_7d?.price ?? []}
                 weekChangeData={data?.price_change_percentage_7d_in_currency ?? 0}
+                width={150}
               />
             ) : (
               'Loading chart..'

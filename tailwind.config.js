@@ -50,7 +50,7 @@ export default {
     'btn-base',
     'btn-variant-default',
     'btn-variant-default-active',
-    'btn-variant-success',
-    'btn-variant-success-active',
+    'btn-variant-accent',
+    'btn-variant-accent-active',
   ],
 };

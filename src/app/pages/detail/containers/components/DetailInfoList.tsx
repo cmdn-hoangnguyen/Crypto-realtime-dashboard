@@ -1,7 +1,7 @@
 import type { JSX } from 'react';
 import { DETAIL_INFO, type CURRENCY } from '../../../../../constants/enum';
 import type { RenderData } from '../../../../../constants/type';
-import { formatValue, getCurrency } from '../../../../../utils/common';
+import { formatHugeNumber, formatValue, getCurrency } from '../../../../../utils/common';
 
 interface Props<T = number | string> {
   title: string;
@@ -20,14 +20,16 @@ export const DetailInfoList = <T,>({ title, data, currency, detailInfo }: Props<
         return (
           <>
             {(index === 0 || index === 1) && getCurrency(currency)}
-            {formatValue(numValue)}
+            {formatHugeNumber(numValue)}
           </>
         );
       };
       break;
 
     case DETAIL_INFO.COIN:
-      renderData = (value?: T, index?: number) => <>{value}</>;
+      renderData = (value?: T, index?: number) => (
+        <>{index === 0 ? <a href={value as string}>Home</a> : value}</>
+      );
       break;
 
     default:
@@ -36,15 +38,17 @@ export const DetailInfoList = <T,>({ title, data, currency, detailInfo }: Props<
 
   return (
     <div className="flex flex-col gap-2">
-      <h3 className="font-semibold text-xl">{title}</h3>
+      <h3 className="text-[var(--text-primary)] font-semibold text-xl">{title}</h3>
 
-      <ul className="flex flex-col">
+      <ul className="flex flex-col gap-2">
         {data?.map((info, index) => (
-          <li className="py-4 border-b border-solid border-[var(--border-default)]" key={index}>
+          <li className="p-4 rounded-lg bg-[var(--bg-primary)]" key={index}>
             <div className="flex justify-between">
-              <span className="text-[var(--color-muted-dark)]">{info?.label}</span>
+              <span className="text-[var(--text-secondary)]">{info?.label}</span>
 
-              <span className="font-semibold">{renderData(info?.value, index)}</span>
+              <span className="text-[var(--text-primary)] font-semibold">
+                {renderData(info?.value, index)}
+              </span>
             </div>
           </li>
         ))}
