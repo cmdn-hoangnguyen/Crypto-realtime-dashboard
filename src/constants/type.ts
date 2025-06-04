@@ -204,6 +204,8 @@ export interface TableTemplate {
   id: number;
   headerLabel: HEADER_LABEL;
   classname: string;
+  headerClass?: string;
+  bodyClass?: string;
 }
 
 export interface RenderData<T = number | string> {

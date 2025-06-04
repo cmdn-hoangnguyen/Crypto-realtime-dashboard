@@ -31,10 +31,10 @@ const Pagination = ({
       return pages;
     }
 
-    if (currentPage <= 3) {
-      pages.push(1, 2, 3, 4, '...', lastPage);
-    } else if (currentPage >= lastPage - 2) {
-      pages.push(1, '...', lastPage - 3, lastPage - 2, lastPage - 1, lastPage);
+    if (currentPage < 3) {
+      pages.push(1, 2, 3, '...', lastPage);
+    } else if (currentPage > lastPage - 2) {
+      pages.push(1, '...', lastPage - 2, lastPage - 1, lastPage);
     } else {
       pages.push(1, '...', currentPage - 1, currentPage, currentPage + 1, '...', lastPage);
     }
@@ -43,8 +43,6 @@ const Pagination = ({
   };
 
   const pagesArray = getPageList();
-
-  const paginateButtonStyle = 'cursor-pointer p-2';
 
   const handleNextPage = () => {
     currentPage !== lastPage && onPaginationClick(currentPage + 1);
@@ -55,20 +53,32 @@ const Pagination = ({
   };
 
   return (
-    <ul className={clsx(classname, 'flex gap-2 items-center m-auto w-fit')}>
-      <li className={paginateButtonStyle} onClick={handlePrevPage}>
-        <i>
-          <FontAwesomeIcon icon={faChevronLeft} />
-        </i>
+    <ul className={clsx(classname, 'flex flex-wrap gap-2 items-center m-auto w-fit')}>
+      <li>
+        <Button
+          label={
+            <i>
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </i>
+          }
+          onClick={handlePrevPage}
+        />
       </li>
 
       {pagesArray.map((page, index) => (
-        <li key={index}>
+        <li
+          className={clsx(
+            (page === '...' ||
+              (page !== lastPage && (page === currentPage + 1 || page === currentPage + 2)) ||
+              (page !== 1 && (page === currentPage - 1 || page === currentPage - 2))) &&
+              'sm:block hidden'
+          )}
+          key={index}
+        >
           {page === '...' ? (
             '...'
           ) : (
             <Button
-              classname="w-12"
               label={page.toString()}
               onClick={() => onPaginationClick(page)}
               isActive={page === currentPage}
@@ -77,10 +87,15 @@ const Pagination = ({
         </li>
       ))}
 
-      <li className={paginateButtonStyle} onClick={handleNextPage}>
-        <i>
-          <FontAwesomeIcon icon={faChevronRight} />
-        </i>
+      <li>
+        <Button
+          label={
+            <i>
+              <FontAwesomeIcon icon={faChevronRight} />
+            </i>
+          }
+          onClick={handleNextPage}
+        />
       </li>
     </ul>
   );

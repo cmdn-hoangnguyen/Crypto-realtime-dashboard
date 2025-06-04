@@ -5,47 +5,67 @@ export const coinMarketTable: TableTemplate[] = [
   {
     id: 1,
     headerLabel: HEADER_LABEL.FAV,
-    classname: 'text-left',
+    classname: '',
+    headerClass: '',
+    bodyClass: '',
   },
   {
     id: 2,
     headerLabel: HEADER_LABEL.COIN,
-    classname: 'text-left w-[280px]',
+    classname:
+      'w-[200px] max-w-[50vw] sticky left-[-1px] top-[-1px] border-b-[var(--border-default)]',
+    headerClass: 'bg-[var(--bg-secondary)]',
+    bodyClass:
+      'bg-[var(--bg-primary)] group-hover:font-bold border border-solid sm:group-hover:border-l-[var(--bg-secondary)] sm:group-hover:border-r-[var(--bg-secondary)] border-t-transparent border-l-transparent border-r-transparent',
   },
   {
     id: 3,
     headerLabel: HEADER_LABEL.PRICE,
-    classname: 'text-right',
+    classname: '',
+    headerClass: '',
+    bodyClass: '',
   },
   {
     id: 4,
     headerLabel: HEADER_LABEL.ONE_HOUR,
-    classname: 'text-right',
+    classname: '',
+    headerClass: '',
+    bodyClass: '',
   },
   {
     id: 5,
     headerLabel: HEADER_LABEL.TWENTY_FOUR_HOURS,
-    classname: 'text-right',
+    classname: '',
+    headerClass: '',
+    bodyClass: '',
   },
   {
     id: 6,
     headerLabel: HEADER_LABEL.SEVEN_DAYS,
-    classname: 'text-right',
+    classname: '',
+    headerClass: '',
+    bodyClass: '',
   },
   {
     id: 7,
     headerLabel: HEADER_LABEL.VOLUME_24H,
-    classname: 'text-right',
+    classname: '',
+    headerClass: '',
+    bodyClass: '',
   },
   {
     id: 8,
     headerLabel: HEADER_LABEL.MARKET_CAP,
-    classname: 'text-right',
+    classname: '',
+    headerClass: '',
+    bodyClass: '',
   },
   {
     id: 9,
     headerLabel: HEADER_LABEL.LAST_7_DAYS,
-    classname: 'text-right',
+    classname: 'max-w-[150px]',
+    headerClass: '',
+    bodyClass: '',
   },
 ];
 
@@ -93,6 +113,21 @@ export const HEADER_SORT_MAPPING: Partial<
     desc: SORT_VALUE.CHANGE_7D_DESC,
   },
 };
+
+export const headerNavigate = [
+  {
+    label: 'About us',
+    href: '/#',
+  },
+  {
+    label: 'NFT',
+    href: '/#',
+  },
+  {
+    label: 'Community',
+    href: '/#',
+  },
+];
 
 export const dayOptions = [
   { label: '24H', value: 1 },
@@ -168,6 +203,6 @@ export const community = [
 export const footerLinks = [
   { title: 'Resources', data: resources },
   { title: 'Support', data: support },
-  { title: 'About CoinGecko', data: about },
+  { title: 'About Legit', data: about },
   { title: 'Community', data: community },
 ];

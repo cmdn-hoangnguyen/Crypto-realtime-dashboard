@@ -24,7 +24,7 @@ export const useRenderTrending = ({
 
   return [
     {
-      title: '🔥 Top Trending Coins',
+      title: '🔥 Trending Coins',
       data: mostTrendingCoin,
       getIcon: item => item.item.small,
       getName: item => item.item.name,
@@ -32,7 +32,7 @@ export const useRenderTrending = ({
       getChange: item => item.item.data.price_change_percentage_24h?.[currency] ?? 0,
     },
     {
-      title: '📈 Categories - Impressive Market cap',
+      title: '📈 Top Categories',
       data: mostTrendingCategory,
       getName: item => item.name,
       getValue: item => `$${formatHugeNumber(item.data.market_cap)}`,

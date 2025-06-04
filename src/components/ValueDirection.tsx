@@ -15,9 +15,7 @@ const ValueDirection = ({ value, classname }: Props) => {
 
   return (
     <div className={clsx(classname, 'flex justify-end gap-1')} style={{ color: color }}>
-      <i>
-        {value > 0 ? <FontAwesomeIcon icon={faCaretUp} /> : <FontAwesomeIcon icon={faCaretDown} />}
-      </i>
+      <i>{<FontAwesomeIcon icon={value > 0 ? faCaretUp : faCaretDown} />}</i>
       <span>{formatValue}%</span>
     </div>
   );

@@ -7,7 +7,7 @@ interface Props {
 export const LogoText = ({ isHeader }: Props) => {
   return (
     <a href="/">
-      <div className="flex items-center">
+      <div className="flex items-end">
         <RoundedItem
           content={
             <div className="max-w-10 max-h-10">
@@ -17,9 +17,13 @@ export const LogoText = ({ isHeader }: Props) => {
         />
 
         {isHeader ? (
-          <h1 className="text-xl font-bold tracking-tight ml-2">LegitCrypto</h1>
+          <h1 className="text-[var(--text-primary)] text-xl font-bold tracking-tight ml-2">
+            LegitCrypto
+          </h1>
         ) : (
-          <h2 className="text-xl font-bold tracking-tight ml-2">LegitCrypto</h2>
+          <h2 className="text-[var(--text-primary)] text-xl font-bold tracking-tight ml-2">
+            LegitCrypto
+          </h2>
         )}
       </div>
     </a>
