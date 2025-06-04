@@ -11,7 +11,7 @@ export const LogoText = ({ isHeader }: Props) => {
         <RoundedItem
           content={
             <div className="max-w-10 max-h-10">
-              <img src="/logo.ico" alt="Crypto" />
+              <img src="/images/logo.ico" alt="Crypto" />
             </div>
           }
         />

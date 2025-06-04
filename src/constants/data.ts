@@ -1,4 +1,4 @@
-import { CURRENCY, HEADER_LABEL, SORT_VALUE } from './enum';
+import { CURRENCY, ERROR_TYPE, HEADER_LABEL, SORT_VALUE } from './enum';
 import { AXIOS_ERROR_CODE } from './errorEnum';
 import type { TableTemplate } from './type';
 
@@ -210,4 +210,13 @@ export const AXIOS_ERROR_MESSAGES: Record<AXIOS_ERROR_CODE, string> = {
   [AXIOS_ERROR_CODE.TIMEOUT]: 'Request timed out. Please try again later.',
   [AXIOS_ERROR_CODE.TOO_MANY_REQUESTS]: 'Request limit reached! Please wait a moment.',
   [AXIOS_ERROR_CODE.NO_RESPONSE]: 'No response from server. Maybe CORS/network issue.',
+};
+
+export const errorData = {
+  [ERROR_TYPE.PAGE]: {
+    image: {
+      url: '/images/not-found.png',
+      alt: 'Not found',
+    },
+  },
 };

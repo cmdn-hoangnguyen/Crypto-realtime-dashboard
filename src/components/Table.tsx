@@ -98,7 +98,7 @@ export const Table = ({
             </tbody>
           </table>
         ) : (
-          <img className="w-full" src="./empty-table.png" alt="Empty table" />
+          <img className="w-full" src="./images/empty-table.png" alt="Empty table" />
         )}
       </div>
     </div>

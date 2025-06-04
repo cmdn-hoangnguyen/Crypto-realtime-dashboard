@@ -71,3 +71,7 @@ export enum DETAIL_INFO {
   MARKET = 'market',
   COIN = 'coin',
 }
+
+export enum ERROR_TYPE {
+  PAGE = 'PAGE',
+}
