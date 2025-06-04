@@ -16,15 +16,17 @@ export const getCurrency = (currency: CURRENCY) => {
 };
 
 export const formatValue = (value: number, decimalPlaces = 2) => {
-  const fixedValue = value.toFixed(decimalPlaces);
+  if (!value) return;
 
-  const [intPart, decimalPartRaw] = fixedValue.toString().split('.');
+  const fixedValue = value?.toFixed(decimalPlaces);
 
-  const formattedInt = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const [intPart, decimalPartRaw] = fixedValue?.toString().split('.');
+
+  const formattedInt = intPart?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   if (!decimalPartRaw) return formattedInt;
 
-  const decimalPart = decimalPartRaw.replace(/0+$/, '');
+  const decimalPart = decimalPartRaw?.replace(/0+$/, '');
 
   return decimalPart ? `${formattedInt}.${decimalPart}` : formattedInt;
 };

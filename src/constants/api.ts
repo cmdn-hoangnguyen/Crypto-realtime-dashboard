@@ -21,7 +21,7 @@ export const endpointGetAllCoinMarket = ({ currency }: { currency: CURRENCY }) =
 };
 
 export const endpointGetAllCoinMarketLimitInfo = () => {
-  return `${ENDPOINTS.COINS_MARKET}vs_currency=usd`;
+  return `${ENDPOINTS.COINS_MARKET}&vs_currency=usd`;
 };
 
 export const endpointGetCoinMarket = ({

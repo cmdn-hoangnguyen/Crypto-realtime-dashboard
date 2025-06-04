@@ -10,7 +10,7 @@ export const Paper = ({ children, className }: Props) => {
   return (
     <div
       className={clsx(
-        'p-4 rounded-xl border border-solid shadow-sm',
+        'md:p-4 p-2 rounded-xl border border-solid shadow-sm',
         'bg-[var(--bg-secondary)] border-[var(--bg-muted)]',
         className
       )}

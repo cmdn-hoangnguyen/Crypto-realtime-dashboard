@@ -20,7 +20,7 @@ export const handlers = [
     (req, res, ctx) => {
       mockData = randomizePrice(mockData);
 
-      return res(ctx.status(200), ctx.delay(500), ctx.json(mockData));
+      return res(ctx.status(200), ctx.delay(429), ctx.json(mockData));
     }
   ),
 ];

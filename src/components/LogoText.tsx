@@ -7,7 +7,7 @@ interface Props {
 export const LogoText = ({ isHeader }: Props) => {
   return (
     <a href="/">
-      <div className="flex items-end">
+      <div className="flex items-center">
         <RoundedItem
           content={
             <div className="max-w-10 max-h-10">

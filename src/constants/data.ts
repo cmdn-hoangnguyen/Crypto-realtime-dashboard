@@ -1,4 +1,5 @@
 import { CURRENCY, HEADER_LABEL, SORT_VALUE } from './enum';
+import { AXIOS_ERROR_CODE } from './errorEnum';
 import type { TableTemplate } from './type';
 
 export const coinMarketTable: TableTemplate[] = [
@@ -13,10 +14,10 @@ export const coinMarketTable: TableTemplate[] = [
     id: 2,
     headerLabel: HEADER_LABEL.COIN,
     classname:
-      'w-[200px] max-w-[50vw] sticky left-[-1px] top-[-1px] border-b-[var(--border-default)]',
+      'w-[200px] max-w-[40vw] sticky left-[-1px] top-[-1px] border-b-[var(--border-default)]',
     headerClass: 'bg-[var(--bg-secondary)]',
     bodyClass:
-      'bg-[var(--bg-primary)] group-hover:font-bold border border-solid sm:group-hover:border-l-[var(--bg-secondary)] sm:group-hover:border-r-[var(--bg-secondary)] border-t-transparent border-l-transparent border-r-transparent',
+      'bg-[var(--bg-primary)] group-hover:font-bold border border-solid group-hover:border-t-[var(--bg-secondary)] group-hover:border-l-[var(--bg-secondary)] group-hover:border-r-[var(--bg-secondary)] border-t-transparent border-l-transparent border-r-transparent',
   },
   {
     id: 3,
@@ -50,20 +51,20 @@ export const coinMarketTable: TableTemplate[] = [
     id: 7,
     headerLabel: HEADER_LABEL.VOLUME_24H,
     classname: '',
-    headerClass: '',
+    headerClass: 'min-w-32',
     bodyClass: '',
   },
   {
     id: 8,
     headerLabel: HEADER_LABEL.MARKET_CAP,
     classname: '',
-    headerClass: '',
+    headerClass: 'min-w-32',
     bodyClass: '',
   },
   {
     id: 9,
     headerLabel: HEADER_LABEL.LAST_7_DAYS,
-    classname: 'max-w-[150px]',
+    classname: 'w-[150px]',
     headerClass: '',
     bodyClass: '',
   },
@@ -77,21 +78,27 @@ export const favoriteCoin: TableTemplate[] = [
 export const SORT_OPTIONS: Record<SORT_VALUE, string> = {
   [SORT_VALUE.MARKET_CAP_DESC]: 'Market Cap',
   [SORT_VALUE.MARKET_CAP_ASC]: 'Market Cap',
-  [SORT_VALUE.VOLUME_DESC]: 'Volume',
-  [SORT_VALUE.VOLUME_ASC]: 'Volume',
-  [SORT_VALUE.NAME_ASC]: 'Name',
-  [SORT_VALUE.NAME_DESC]: 'Name',
-  [SORT_VALUE.CHANGE_1H_ASC]: '1H Change',
-  [SORT_VALUE.CHANGE_1H_DESC]: '1H Change',
-  [SORT_VALUE.CHANGE_24H_ASC]: '24H Change',
-  [SORT_VALUE.CHANGE_24H_DESC]: '24H Change',
-  [SORT_VALUE.CHANGE_7D_ASC]: '7D Change',
-  [SORT_VALUE.CHANGE_7D_DESC]: '7D Change',
+  [SORT_VALUE.VOLUME_DESC]: '24H volume',
+  [SORT_VALUE.VOLUME_ASC]: '24H volume',
+  [SORT_VALUE.NAME_ASC]: 'Coin',
+  [SORT_VALUE.NAME_DESC]: 'Coin',
+  [SORT_VALUE.CHANGE_1H_ASC]: '1H',
+  [SORT_VALUE.CHANGE_1H_DESC]: '1H',
+  [SORT_VALUE.CHANGE_24H_ASC]: '24H',
+  [SORT_VALUE.CHANGE_24H_DESC]: '24H',
+  [SORT_VALUE.CHANGE_7D_ASC]: '7D',
+  [SORT_VALUE.CHANGE_7D_DESC]: '7D',
+  [SORT_VALUE.PRICE_ASC]: 'Price',
+  [SORT_VALUE.PRICE_DESC]: 'Price',
 };
 
 export const HEADER_SORT_MAPPING: Partial<
   Record<HEADER_LABEL, { asc: SORT_VALUE; desc: SORT_VALUE }>
 > = {
+  [HEADER_LABEL.COIN]: {
+    asc: SORT_VALUE.NAME_ASC,
+    desc: SORT_VALUE.NAME_DESC,
+  },
   [HEADER_LABEL.MARKET_CAP]: {
     asc: SORT_VALUE.MARKET_CAP_ASC,
     desc: SORT_VALUE.MARKET_CAP_DESC,
@@ -100,17 +107,9 @@ export const HEADER_SORT_MAPPING: Partial<
     asc: SORT_VALUE.VOLUME_ASC,
     desc: SORT_VALUE.VOLUME_DESC,
   },
-  [HEADER_LABEL.ONE_HOUR]: {
-    asc: SORT_VALUE.CHANGE_1H_ASC,
-    desc: SORT_VALUE.CHANGE_1H_DESC,
-  },
-  [HEADER_LABEL.TWENTY_FOUR_HOURS]: {
-    asc: SORT_VALUE.CHANGE_24H_ASC,
-    desc: SORT_VALUE.CHANGE_24H_DESC,
-  },
-  [HEADER_LABEL.SEVEN_DAYS]: {
-    asc: SORT_VALUE.CHANGE_7D_ASC,
-    desc: SORT_VALUE.CHANGE_7D_DESC,
+  [HEADER_LABEL.PRICE]: {
+    asc: SORT_VALUE.PRICE_ASC,
+    desc: SORT_VALUE.PRICE_DESC,
   },
 };
 
@@ -178,7 +177,7 @@ export const support = [
 
 export const about = [
   { label: 'About Us', href: '#' },
-  { label: 'Careers', href: '#', badge: 'Join Us' }, // Có badge
+  { label: 'Careers', href: '#', badge: 'Join Us' },
   { label: 'Branding Guide', href: '#' },
   { label: 'Methodology', href: '#' },
   { label: 'Disclaimer', href: '#' },
@@ -206,3 +205,9 @@ export const footerLinks = [
   { title: 'About Legit', data: about },
   { title: 'Community', data: community },
 ];
+
+export const AXIOS_ERROR_MESSAGES: Record<AXIOS_ERROR_CODE, string> = {
+  [AXIOS_ERROR_CODE.TIMEOUT]: 'Request timed out. Please try again later.',
+  [AXIOS_ERROR_CODE.TOO_MANY_REQUESTS]: 'Request limit reached! Please wait a moment.',
+  [AXIOS_ERROR_CODE.NO_RESPONSE]: 'No response from server. Maybe CORS/network issue.',
+};

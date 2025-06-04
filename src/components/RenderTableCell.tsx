@@ -10,14 +10,16 @@ import { faHeart, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import { useEffect, useState } from 'react';
 import { FlashColor } from './FlashColor';
+import { CoinRawInfoNavigation } from './CoinRawInfoNavigation';
 
 interface Props {
   headerLabel: HEADER_LABEL;
   currency: CURRENCY;
   data: CoinMarket;
+  onFavoriteUpdated?: () => void;
 }
 
-const RenderTableCell = ({ headerLabel, data, currency }: Props) => {
+const RenderTableCell = ({ headerLabel, data, currency, onFavoriteUpdated }: Props) => {
   const [localData, setLocalData] = useState<CoinMarket[]>([]);
 
   useEffect(() => {
@@ -40,6 +42,7 @@ const RenderTableCell = ({ headerLabel, data, currency }: Props) => {
       : [...currentFavorites, data];
 
     updateFavoriteList(updatedFavorites);
+    onFavoriteUpdated?.();
   };
 
   const renderCellContent = () => {
@@ -76,20 +79,7 @@ const RenderTableCell = ({ headerLabel, data, currency }: Props) => {
         );
 
       case HEADER_LABEL.COIN:
-        return (
-          <a className="table-body-item-cell" href={`/${PATHNAME.DETAIL}/${data?.id}`}>
-            <div className="flex items-center">
-              <div className="h-12 min-w-12">
-                <img className="w-full h-full" src={data?.image} alt={data?.name} />
-              </div>
-
-              <div className="flex flex-col ml-2">
-                <span className="truncate max-w-20">{data?.name}</span>
-                <span className="uppercase text-[var(--color-muted)]">{data?.symbol}</span>
-              </div>
-            </div>
-          </a>
-        );
+        return <CoinRawInfoNavigation classname="table-body-item-cell" coin={data} size={28} />;
 
       case HEADER_LABEL.PRICE:
         return (

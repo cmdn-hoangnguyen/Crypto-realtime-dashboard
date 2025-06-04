@@ -45,20 +45,19 @@ export function CustomSelect<T>({
   };
 
   return (
-    <div className={clsx('relative w-12 text-sm z-20', className)} ref={selectRef}>
-      <button
-        type="button"
+    <div className={clsx('relative w-full text-sm z-20', className)} ref={selectRef}>
+      <span
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full text-center uppercase rounded-md"
+        className="w-full flex flex-nowrap justify-center rounded-md"
       >
-        {selected?.label}
-        <i className="ml-1">
+        <span className="text-center sm:text-sm text-[10px] uppercase">{selected?.label}</span>
+        <i className="sm:ml-1 text-[10px]">
           <FontAwesomeIcon icon={faAngleDown} />
         </i>
-      </button>
+      </span>
 
       {isOpen && (
-        <ul className="absolute z-10 mt-4 w-full rounded-md bg-white shadow-md overflow-hidden border">
+        <ul className="absolute top-full right-[-8px] z-10 mt-4 w-fit min-w-20 rounded-md bg-[var(--bg-gray-light)] shadow-md overflow-hidden border">
           {options.map((option, index) => (
             <li
               key={index}
@@ -66,8 +65,8 @@ export function CustomSelect<T>({
                 handleOptionClick(option.value);
               }}
               className={clsx(
-                'cursor-pointer px-2 py-2 uppercase hover:bg-indigo-100',
-                option.value === value && 'bg-indigo-100'
+                'text-[var(--text-primary)] cursor-pointer px-2 py-2 uppercase hover:bg-[var(--bg-muted)]',
+                option.value === value && 'bg-[var(--bg-muted)]'
               )}
             >
               {option.label}

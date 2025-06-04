@@ -14,12 +14,14 @@ export enum SORT_VALUE {
   VOLUME_ASC = 'volume_asc',
   NAME_ASC = 'id_asc',
   NAME_DESC = 'id_desc',
-  CHANGE_1H_ASC = 'change_1h_asc',
-  CHANGE_1H_DESC = 'change_1h_desc',
-  CHANGE_24H_ASC = 'change_24h_asc',
-  CHANGE_24H_DESC = 'change_24h_desc',
-  CHANGE_7D_ASC = 'change_7d_asc',
-  CHANGE_7D_DESC = 'change_7d_desc',
+  CHANGE_1H_ASC = 'price_change_percentage_1h_in_currency_asc',
+  CHANGE_1H_DESC = 'price_change_percentage_1h_in_currency_desc',
+  CHANGE_24H_ASC = 'price_change_percentage_24h_in_currency_asc',
+  CHANGE_24H_DESC = 'price_change_percentage_24h_in_currency_desc',
+  CHANGE_7D_ASC = 'price_change_percentage_7d_in_currency_asc',
+  CHANGE_7D_DESC = 'price_change_percentage_7d_in_currency_desc',
+  PRICE_ASC = 'current_price_asc',
+  PRICE_DESC = 'current_price_desc',
 }
 
 export enum BUTTON_VARIANT {
@@ -52,6 +54,12 @@ export enum HEADER_LABEL {
 
 export enum LOCAL_STORAGE_KEY {
   FAVORITE = 'favorite',
+  THEME = 'theme',
+}
+
+export enum THEME {
+  DARK = 'dark',
+  LIGHT = 'light',
 }
 
 export enum PATHNAME {

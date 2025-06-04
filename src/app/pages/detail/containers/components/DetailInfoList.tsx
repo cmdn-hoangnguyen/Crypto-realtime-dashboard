@@ -1,7 +1,7 @@
 import type { JSX } from 'react';
 import { DETAIL_INFO, type CURRENCY } from '../../../../../constants/enum';
 import type { RenderData } from '../../../../../constants/type';
-import { formatHugeNumber, formatValue, getCurrency } from '../../../../../utils/common';
+import { formatHugeNumber, getCurrency } from '../../../../../utils/common';
 
 interface Props<T = number | string> {
   title: string;

@@ -62,21 +62,21 @@ const Pagination = ({
             </i>
           }
           onClick={handlePrevPage}
+          isActive={currentPage === 1}
         />
       </li>
 
       {pagesArray.map((page, index) => (
         <li
           className={clsx(
-            (page === '...' ||
-              (page !== lastPage && (page === currentPage + 1 || page === currentPage + 2)) ||
+            ((page !== lastPage && (page === currentPage + 1 || page === currentPage + 2)) ||
               (page !== 1 && (page === currentPage - 1 || page === currentPage - 2))) &&
               'sm:block hidden'
           )}
           key={index}
         >
           {page === '...' ? (
-            '...'
+            <span className="text-[var(--text-primary)]">...</span>
           ) : (
             <Button
               label={page.toString()}
@@ -95,6 +95,7 @@ const Pagination = ({
             </i>
           }
           onClick={handleNextPage}
+          isActive={currentPage === lastPage}
         />
       </li>
     </ul>

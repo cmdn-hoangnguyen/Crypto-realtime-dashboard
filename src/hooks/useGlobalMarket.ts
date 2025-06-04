@@ -1,11 +1,11 @@
 import useSWR from 'swr';
 import type { GlobalMarketData } from '../constants/type';
 import { endpointGetGlobalMarket } from '../constants/api';
-import { fetcher } from '../libs/axios';
+import { fetcher } from '../libs/fetcher';
 
 export const useGlobalMarket = () => {
   const { data, isLoading } = useSWR<GlobalMarketData>(endpointGetGlobalMarket(), fetcher, {
-    dedupingInterval: 60000,
+    dedupingInterval: 30000,
     revalidateOnFocus: false,
   });
 

@@ -1,6 +1,5 @@
-import { fetcher } from '../libs/axios';
+import { fetcher } from '../libs/fetcher';
 import {
-  ENDPOINTS,
   endpointSearchAllDetailCoinMarket,
   endpointSearchAllGeneralCoinById,
   endpointSearchDetailCoinMarket,
@@ -26,7 +25,7 @@ const useSearchCoin = (props: Props) => {
   const query = shouldFetch ? endpointSearchAllGeneralCoinById({ input: input }) : null;
 
   // API RETURN GENERAL INFO
-  const { data: generalData } = useSWR(query, fetcher, {
+  const { data: generalData, isLoading: isGeneralDataLoading } = useSWR(query, fetcher, {
     revalidateOnFocus: false,
     dedupingInterval: 300,
   });
@@ -66,8 +65,10 @@ const useSearchCoin = (props: Props) => {
   );
 
   return {
+    rawCoin: generalData?.coins,
     coinList: marketData ?? [],
     searchCoinLoading: marketLoading,
+    rawCoinLoading: isGeneralDataLoading,
     searchCoinLength: marketData?.length,
   };
 };
