@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+
 import type { BADGE_VARIANT } from '../constants/enum';
 
 interface BadgeProps {

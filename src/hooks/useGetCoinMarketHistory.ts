@@ -1,9 +1,9 @@
 import useSWR from 'swr';
 
 import { endpointGetCoinHistory, endpointGetSingleCoinHistory } from '../constants/api';
-import { fetcher } from '../libs/fetcher';
 import { CURRENCY } from '../constants/enum';
 import type { CoinHistory, CoinMarketHistory } from '../constants/type';
+import { fetcher } from '../libs/fetcher';
 
 interface Props {
   coinId: string;

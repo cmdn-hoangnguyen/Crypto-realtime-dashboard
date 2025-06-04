@@ -16,11 +16,10 @@ export const getCurrency = (currency: CURRENCY) => {
 };
 
 export const formatValue = (value: number, decimalPlaces = 2) => {
-  if (!value) return;
+  if (value === undefined || value === null) return;
 
-  const fixedValue = value?.toFixed(decimalPlaces);
-
-  const [intPart, decimalPartRaw] = fixedValue?.toString().split('.');
+  const fixedValue = value.toFixed(decimalPlaces);
+  const [intPart, decimalPartRaw] = fixedValue.split('.');
 
   const formattedInt = intPart?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 

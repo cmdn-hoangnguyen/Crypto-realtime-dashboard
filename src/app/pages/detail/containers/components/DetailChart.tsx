@@ -1,8 +1,4 @@
-import { CURRENCY } from '../../../../../constants/enum';
-import { Line } from 'react-chartjs-2';
-import { formatHugeNumber, formatValue, getCurrency, hexToRGBA } from '../../../../../utils/common';
-import type { ChartOptions } from 'chart.js';
-
+import type { ChartOptions, TooltipItem } from 'chart.js';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,6 +10,10 @@ import {
   Legend,
   Filler,
 } from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
+import { CURRENCY } from '../../../../../constants/enum';
+import { formatHugeNumber, formatValue, getCurrency, hexToRGBA } from '../../../../../utils/common';
 
 ChartJS.register(
   CategoryScale,
@@ -69,7 +69,7 @@ const DetailChart = ({ priceHistory, currency, color }: Props) => {
         mode: 'index',
         intersect: false,
         callbacks: {
-          label: function (context: any) {
+          label: function (context: TooltipItem<'line'>) {
             const value = context.parsed.y;
             return `Price: $${formatValue(value)}`;
           },

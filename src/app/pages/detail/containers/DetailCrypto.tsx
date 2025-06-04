@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react';
-import Container from '../../../../components/Container';
-import DetailChart from './components/DetailChart';
-import { CURRENCY, DETAIL_INFO } from '../../../../constants/enum';
+
 import { useParams } from 'react-router-dom';
-import useGetCoinMarketHistory from '../../../../hooks/useGetCoinMarketHistory';
-import { formatValue, getColorByValue, getCurrency } from '../../../../utils/common';
-import { Button } from '../../../../components/Button';
-import { currencyOptions, dayOptions } from '../../../../constants/data';
-import ValueDirection from '../../../../components/ValueDirection';
+
+import DetailChart from './components/DetailChart';
 import { DetailInfoList } from './components/DetailInfoList';
-import { useGetDetailMarketInfo } from '../hooks/useGetMarketInfo';
-import { useGetCoinInfo } from '../hooks/useGetCoinInfo';
 import { DetailPriceChange } from './components/DetailPriceChange';
+import { Button } from '../../../../components/Button';
+import Container from '../../../../components/Container';
 import { Paper } from '../../../../components/Paper';
 import { CustomSelect } from '../../../../components/Select';
+import ValueDirection from '../../../../components/ValueDirection';
+import { currencyOptions, dayOptions } from '../../../../constants/data';
+import { CURRENCY, DETAIL_INFO } from '../../../../constants/enum';
+import useGetCoinMarketHistory from '../../../../hooks/useGetCoinMarketHistory';
+import { formatValue, getColorByValue, getCurrency } from '../../../../utils/common';
+import { useGetCoinInfo } from '../hooks/useGetCoinInfo';
+import { useGetDetailMarketInfo } from '../hooks/useGetMarketInfo';
 
 const DetailCrypto = () => {
   const [currency, setCurrency] = useState<CURRENCY>(CURRENCY.USD);

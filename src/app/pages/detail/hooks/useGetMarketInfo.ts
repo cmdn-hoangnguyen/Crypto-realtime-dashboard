@@ -8,6 +8,8 @@ export const useGetDetailMarketInfo = ({
   detailHistory: CoinHistory;
   currency: CURRENCY;
 }) => {
+  if (!detailHistory) return [];
+
   return [
     {
       label: 'Market cap',

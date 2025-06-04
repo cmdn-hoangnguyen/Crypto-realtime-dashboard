@@ -1,18 +1,19 @@
+import { useState, type ChangeEventHandler } from 'react';
+
 import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import Container from './Container';
-import { Button } from './Button';
-import { BUTTON_VARIANT, CURRENCY, PATHNAME } from '../constants/enum';
-import { LogoText } from './LogoText';
-import { headerNavigate } from '../constants/data';
 import clsx from 'clsx';
-import { useState, type ChangeEventHandler } from 'react';
-import useSearchCoin from '../hooks/useSearchCoin';
-import useDebounce from '../hooks/useDebounce';
+
+import { Button } from './Button';
+import Container from './Container';
+import { LogoText } from './LogoText';
 import { ModalDisplayContent } from './ModalDisplayContent';
-import { ResponsiveNavButtons } from './ResponsiveNavButtons';
 import { ResponsiveModalContent } from './ResponsiveModalContent';
+import { ResponsiveNavButtons } from './ResponsiveNavButtons';
+import { headerNavigate } from '../constants/data';
+import { BUTTON_VARIANT, CURRENCY, PATHNAME } from '../constants/enum';
+import useDebounce from '../hooks/useDebounce';
+import useSearchCoin from '../hooks/useSearchCoin';
 
 const Header = () => {
   const [currency] = useState(CURRENCY.USD);

@@ -1,8 +1,9 @@
 import { type ChangeEventHandler } from 'react';
-import SearchInput from './SearchInput';
+
 import { CoinRawInfoNavigation } from './CoinRawInfoNavigation';
-import { SpinLoader } from './SpinLoader';
 import { ResponsiveNavButtons } from './ResponsiveNavButtons';
+import SearchInput from './SearchInput';
+import { SpinLoader } from './SpinLoader';
 import type { RawCoin } from '../constants/type';
 
 type Props = {
@@ -36,9 +37,9 @@ export const ResponsiveModalContent = ({
         isLoading={rawCoinLoading}
       />
 
-      {!!debouncedInput?.length ? (
+      {debouncedInput?.length ? (
         <ul className="flex flex-col gap-1 max-h-[75vh] overflow-y-auto overflow-x-hidden">
-          {!!rawCoin?.length ? (
+          {rawCoin?.length ? (
             rawCoin.map((coin: RawCoin) => (
               <li key={coin.id} className="p-2 bg-[var(--bg-muted)] rounded-md">
                 <CoinRawInfoNavigation coin={coin} size={32} />

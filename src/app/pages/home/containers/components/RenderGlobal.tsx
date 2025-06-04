@@ -1,8 +1,9 @@
 // components/RenderGlobalData.tsx
 import React from 'react';
-import { formatHugeNumber, getCurrency } from '../../../../../utils/common';
+
 import { Paper } from '../../../../../components/Paper';
 import type { CURRENCY } from '../../../../../constants/enum';
+import { formatHugeNumber, getCurrency } from '../../../../../utils/common';
 
 interface RenderGlobalDataProps {
   title: string;

@@ -1,16 +1,17 @@
+import { useEffect, useState } from 'react';
+
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+import { faHeart, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { CoinRawInfoNavigation } from './CoinRawInfoNavigation';
+import { FlashColor } from './FlashColor';
 import LineChart from './LineChart';
 import ValueDirection from './ValueDirection';
-import { HEADER_LABEL, LOCAL_STORAGE_KEY, PATHNAME, type CURRENCY } from '../constants/enum';
+import { HEADER_LABEL, LOCAL_STORAGE_KEY, type CURRENCY } from '../constants/enum';
 import type { CoinMarket } from '../constants/type';
 import { formatValue, getCurrency } from '../utils/common';
-import { faHeart, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
-import { useEffect, useState } from 'react';
-import { FlashColor } from './FlashColor';
-import { CoinRawInfoNavigation } from './CoinRawInfoNavigation';
 
 interface Props {
   headerLabel: HEADER_LABEL;

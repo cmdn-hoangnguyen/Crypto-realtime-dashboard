@@ -1,7 +1,18 @@
 import { useEffect, useRef, useState, type ChangeEventHandler } from 'react';
 
+import { InfoValueItem } from './components/InfoValueItem';
+import RenderGlobal from './components/RenderGlobal';
+import { RenderInfoValue } from './components/RenderInfoValue';
+import { Button } from '../../../../components/Button';
 import Container from '../../../../components/Container';
+import Pagination from '../../../../components/Pagination';
+import { Paper } from '../../../../components/Paper';
 import SearchInput from '../../../../components/SearchInput';
+import { SectionLayout } from '../../../../components/SectionLayout';
+import { CustomSelect } from '../../../../components/Select';
+import { SpinLoader } from '../../../../components/SpinLoader';
+import { Table } from '../../../../components/Table';
+import { TableTitle } from '../../../../components/TableTitle';
 import {
   coinMarketTable,
   currencyOptions,
@@ -10,22 +21,11 @@ import {
   totalItemOptions,
 } from '../../../../constants/data';
 import { CURRENCY, HEADER_LABEL, SORT_VALUE } from '../../../../constants/enum';
-import useDebounce from '../../../../hooks/useDebounce';
-import { Button } from '../../../../components/Button';
-import { CustomSelect } from '../../../../components/Select';
-import Pagination from '../../../../components/Pagination';
-import { Table } from '../../../../components/Table';
-import { TableTitle } from '../../../../components/TableTitle';
-import { SpinLoader } from '../../../../components/SpinLoader';
-import { useRenderTrending } from '../hook/useRenderTrending';
-import { Paper } from '../../../../components/Paper';
-import useCoinMarketController from '../hook/useCoinMarketController';
-import { InfoValueItem } from './components/InfoValueItem';
 import type { TrendingCategory, TrendingCoin } from '../../../../constants/type';
-import { RenderInfoValue } from './components/RenderInfoValue';
-import { SectionLayout } from '../../../../components/SectionLayout';
+import useDebounce from '../../../../hooks/useDebounce';
 import { useGlobalMarket } from '../../../../hooks/useGlobalMarket';
-import RenderGlobal from './components/RenderGlobal';
+import useCoinMarketController from '../hook/useCoinMarketController';
+import { useRenderTrending } from '../hook/useRenderTrending';
 
 const Home = () => {
   const [currency, setCurrency] = useState(CURRENCY.USD);

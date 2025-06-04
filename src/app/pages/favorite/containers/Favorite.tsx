@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
-import Container from '../../../../components/Container';
-import { CURRENCY, HEADER_LABEL, LOCAL_STORAGE_KEY, SORT_VALUE } from '../../../../constants/enum';
-import { getLocalStorage } from '../../../../utils/localStorage';
-import type { CoinMarket } from '../../../../constants/type';
-import { favoriteCoin, HEADER_SORT_MAPPING, SORT_OPTIONS } from '../../../../constants/data';
-import { TableTitle } from '../../../../components/TableTitle';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import Container from '../../../../components/Container';
 import { Table } from '../../../../components/Table';
+import { TableTitle } from '../../../../components/TableTitle';
+import { favoriteCoin, HEADER_SORT_MAPPING, SORT_OPTIONS } from '../../../../constants/data';
+import { CURRENCY, HEADER_LABEL, LOCAL_STORAGE_KEY, SORT_VALUE } from '../../../../constants/enum';
+import type { CoinMarket } from '../../../../constants/type';
+import { getLocalStorage } from '../../../../utils/localStorage';
 
 const Favorite = () => {
   const [currency] = useState(CURRENCY.USD);

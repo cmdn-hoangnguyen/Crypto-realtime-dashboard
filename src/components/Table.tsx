@@ -1,10 +1,11 @@
-import clsx from 'clsx';
-import RenderTableCell from './RenderTableCell';
-import type { CoinMarket, TableTemplate } from '../constants/type';
-import { HEADER_LABEL, type CURRENCY, type SORT_VALUE } from '../constants/enum';
-import { HEADER_SORT_MAPPING } from '../constants/data';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
+
+import RenderTableCell from './RenderTableCell';
+import { HEADER_SORT_MAPPING } from '../constants/data';
+import { HEADER_LABEL, type CURRENCY, type SORT_VALUE } from '../constants/enum';
+import type { CoinMarket, TableTemplate } from '../constants/type';
 
 interface Props {
   data: CoinMarket[];
@@ -28,7 +29,7 @@ export const Table = ({
   return (
     <div className="border border-solid border-[var(--border-default)] rounded-2xl overflow-hidden">
       <div className="overflow-x-auto">
-        {!!data?.length ? (
+        {data?.length ? (
           <table className={clsx('table w-full overflow-x-scroll', classname)}>
             <thead className="table-head bg-[var(--bg-secondary)]">
               <tr className="table-head-item">

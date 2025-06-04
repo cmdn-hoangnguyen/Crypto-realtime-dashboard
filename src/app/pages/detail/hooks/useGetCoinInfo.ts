@@ -9,6 +9,8 @@ export const useGetCoinInfo = ({
   detailHistory: CoinHistory;
   currency: CURRENCY;
 }) => {
+  if (!detailHistory) return [];
+
   const formatRange = (inputValue: number) => {
     return `${getCurrency(currency)}${formatValue(inputValue ?? 0)}`;
   };

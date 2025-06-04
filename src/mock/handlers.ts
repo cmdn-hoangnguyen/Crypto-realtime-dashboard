@@ -1,4 +1,5 @@
 import { rest } from 'msw';
+
 import data from './mockData.json';
 
 let mockData = [...data];

@@ -1,4 +1,5 @@
 import type { JSX } from 'react';
+
 import { DETAIL_INFO, type CURRENCY } from '../../../../../constants/enum';
 import type { RenderData } from '../../../../../constants/type';
 import { formatHugeNumber, getCurrency } from '../../../../../utils/common';

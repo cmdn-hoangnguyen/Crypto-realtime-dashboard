@@ -1,10 +1,10 @@
 import { BrowserRouter } from 'react-router-dom';
-
 import './reset.css';
 import './styles.css';
+import { ToastContainer } from 'react-toastify';
+
 import appRoutes from './app/app.route';
 import { RouterOutlet } from './app/core/modules/custom-router-dom/RouterOutlet';
-import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (

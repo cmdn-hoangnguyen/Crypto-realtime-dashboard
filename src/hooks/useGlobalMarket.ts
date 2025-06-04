@@ -1,6 +1,7 @@
 import useSWR from 'swr';
-import type { GlobalMarketData } from '../constants/type';
+
 import { endpointGetGlobalMarket } from '../constants/api';
+import type { GlobalMarketData } from '../constants/type';
 import { fetcher } from '../libs/fetcher';
 
 export const useGlobalMarket = () => {

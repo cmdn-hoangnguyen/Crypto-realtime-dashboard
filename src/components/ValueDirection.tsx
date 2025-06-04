@@ -1,8 +1,8 @@
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 
 import { getColorByValue } from '../utils/common';
-import clsx from 'clsx';
 
 interface Props {
   value: number;

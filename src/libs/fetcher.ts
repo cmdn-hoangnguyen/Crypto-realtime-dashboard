@@ -1,8 +1,9 @@
 import axios, { isAxiosError } from 'axios';
 import { toast } from 'react-toastify';
+
 import { showErrorToast } from './toast';
-import { AXIOS_ERROR_CODE } from '../constants/errorEnum';
 import { AXIOS_ERROR_MESSAGES } from '../constants/data';
+import { AXIOS_ERROR_CODE } from '../constants/errorEnum';
 
 export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,

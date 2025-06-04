@@ -1,10 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
-import { useTheme } from '../hooks/useTheme';
-import { BUTTON_VARIANT, PATHNAME, THEME } from '../constants/enum';
+
 import { Button } from './Button';
 import { Paper } from './Paper';
+import { BUTTON_VARIANT, PATHNAME, THEME } from '../constants/enum';
+import { useTheme } from '../hooks/useTheme';
 
 interface Prop {
   isActiveHeart: boolean;

@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+
 import clsx from 'clsx';
-import { formatValue, getCurrency } from '../utils/common';
+
 import type { CURRENCY } from '../constants/enum';
+import { formatValue, getCurrency } from '../utils/common';
 
 interface Props {
   price: number;

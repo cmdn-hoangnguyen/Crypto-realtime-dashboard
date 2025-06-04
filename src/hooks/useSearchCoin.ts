@@ -1,13 +1,15 @@
-import { fetcher } from '../libs/fetcher';
+import { useMemo } from 'react';
+
+import useSWR from 'swr';
+
 import {
   endpointSearchAllDetailCoinMarket,
   endpointSearchAllGeneralCoinById,
   endpointSearchDetailCoinMarket,
 } from '../constants/api';
-import useSWR from 'swr';
-import { useMemo } from 'react';
-import type { CoinMarket, CoinResearchResult, FetchDataProps } from '../constants/type';
 import { SORT_VALUE, type CURRENCY } from '../constants/enum';
+import type { CoinMarket, CoinResearchResult, FetchDataProps } from '../constants/type';
+import { fetcher } from '../libs/fetcher';
 
 interface GetAllProps {
   input: string;

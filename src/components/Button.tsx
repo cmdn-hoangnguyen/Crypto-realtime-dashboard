@@ -1,5 +1,7 @@
-import clsx from 'clsx';
 import type { JSX } from 'react';
+
+import clsx from 'clsx';
+
 import { BUTTON_VARIANT } from '../constants/enum';
 
 interface Props {

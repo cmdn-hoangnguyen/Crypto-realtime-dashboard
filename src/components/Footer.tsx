@@ -1,6 +1,6 @@
-import { footerLinks } from '../constants/data';
 import Container from './Container';
 import { LogoText } from './LogoText';
+import { footerLinks } from '../constants/data';
 
 export const Footer = () => {
   return (

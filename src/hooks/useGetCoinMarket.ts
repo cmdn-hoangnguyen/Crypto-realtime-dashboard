@@ -1,9 +1,9 @@
 import useSWR from 'swr';
 
 import { endpointGetAllCoinMarketLimitInfo, endpointGetCoinMarket } from '../constants/api';
+import { SORT_VALUE } from '../constants/enum';
 import type { CoinMarket, FetchDataProps } from '../constants/type';
 import { fetcher } from '../libs/fetcher';
-import { SORT_VALUE } from '../constants/enum';
 
 const useGetCoinMarket = ({
   currency,

@@ -1,7 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from './Button';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
+
+import { Button } from './Button';
 
 interface Props {
   dataLength: number;
@@ -45,11 +46,15 @@ const Pagination = ({
   const pagesArray = getPageList();
 
   const handleNextPage = () => {
-    currentPage !== lastPage && onPaginationClick(currentPage + 1);
+    if (currentPage !== lastPage) {
+      onPaginationClick(currentPage + 1);
+    }
   };
 
   const handlePrevPage = () => {
-    currentPage !== 1 && onPaginationClick(currentPage - 1);
+    if (currentPage !== 1) {
+      onPaginationClick(currentPage - 1);
+    }
   };
 
   return (
