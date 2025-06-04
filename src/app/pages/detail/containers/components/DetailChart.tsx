@@ -12,9 +12,19 @@ import {
   Title,
   Tooltip,
   Legend,
+  Filler,
 } from 'chart.js';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 interface history {
   timestamp: number;
@@ -30,6 +40,8 @@ interface Props {
 
 const DetailChart = ({ priceHistory, currency, color }: Props) => {
   const backgroundColor = hexToRGBA(color, 0.1);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const tickFontSize = isMobile ? 10 : 12;
 
   const chartData = {
     labels: priceHistory?.map(item => item.time),
@@ -71,10 +83,14 @@ const DetailChart = ({ priceHistory, currency, color }: Props) => {
     scales: {
       x: {
         ticks: {
+          font: {
+            size: tickFontSize,
+            family: 'Open Sans',
+          },
           autoSkip: true,
           maxRotation: 0,
           minRotation: 45,
-          maxTicksLimit: 10,
+          maxTicksLimit: 7,
           callback: function (value, index) {
             if (index === 0) return '';
             return this.getLabelForValue(value as number);
@@ -87,6 +103,10 @@ const DetailChart = ({ priceHistory, currency, color }: Props) => {
       y: {
         position: 'right',
         ticks: {
+          font: {
+            size: tickFontSize,
+            family: 'Open Sans',
+          },
           callback: function (tickValue: string | number) {
             const value = typeof tickValue === 'number' ? tickValue : parseFloat(tickValue);
             return `${getCurrency(currency)}${formatHugeNumber(value)}`;

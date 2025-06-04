@@ -1,43 +1,47 @@
-import { faBars, faGear, faHeart, faMoon, faSun, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Container from './Container';
 import { Button } from './Button';
-import { BUTTON_VARIANT } from '../constants/enum';
+import { BUTTON_VARIANT, CURRENCY, PATHNAME } from '../constants/enum';
 import { LogoText } from './LogoText';
 import { headerNavigate } from '../constants/data';
-import { useTheme } from '../hooks/useTheme';
 import clsx from 'clsx';
+import { useState, type ChangeEventHandler } from 'react';
+import useSearchCoin from '../hooks/useSearchCoin';
+import useDebounce from '../hooks/useDebounce';
+import { ModalDisplayContent } from './ModalDisplayContent';
+import { ResponsiveNavButtons } from './ResponsiveNavButtons';
+import { ResponsiveModalContent } from './ResponsiveModalContent';
 
 const Header = () => {
-  const { theme, toggleTheme } = useTheme();
+  const [currency] = useState(CURRENCY.USD);
+  const [isOpenModalSearch, setIsOpenModalSearch] = useState<boolean>(false);
+  const [isOpenResponsiveNav, setIsOpenResponsiveNav] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>('');
 
-  const navButtons = [
-    {
-      href: '/favorite/',
-      icon: faHeart,
-      variant: BUTTON_VARIANT.HEART,
-      colorClass: 'text-[var(--color-heart)]',
-    },
-    {
-      href: '/#',
-      icon: faUser,
-      variant: BUTTON_VARIANT.INFO,
-      colorClass: 'text-[var(--color-info)]',
-    },
-    {
-      href: '/#',
-      icon: faGear,
-      variant: BUTTON_VARIANT.ACCENT,
-      colorClass: 'text-[var(--color-accent)]',
-    },
-  ];
+  const debouncedInput = useDebounce({ value: inputValue });
+
+  const pathname = location.pathname;
+  const isActiveHeart = pathname === `/${PATHNAME.FAVORITE}`;
+
+  const handleInputChange: ChangeEventHandler<HTMLInputElement> = event => {
+    setInputValue(event.target.value);
+  };
+
+  const { rawCoin, rawCoinLoading } = useSearchCoin({
+    input: debouncedInput,
+    currency: currency,
+    currentPage: 1,
+    totalItems: 10,
+    isGetAll: false,
+  });
 
   return (
     <header className="header fixed left-0 right-0 shadow-sm backdrop-blur-xl z-30">
       <Container>
         <div className="flex items-center justify-between">
-          <div className="flex items-end gap-6">
+          <div className="flex items-center gap-6">
             <LogoText isHeader />
 
             <ul className="gap-4 md:flex hidden">
@@ -53,46 +57,74 @@ const Header = () => {
           </div>
 
           <ul className="flex items-center gap-2">
-            <li>
+            <ResponsiveNavButtons classname="md:block hidden" isActiveHeart={isActiveHeart} />
+
+            <li className="md:hidden relative">
               <Button
-                variant={BUTTON_VARIANT.DEFAULT}
+                variant={BUTTON_VARIANT.PRIMARY}
                 label={
-                  <i className="px-1">
-                    <FontAwesomeIcon icon={theme === 'dark' ? faSun : faMoon} />
+                  <i
+                    className={clsx(
+                      'group-active:text-[white] px-1',
+                      isOpenResponsiveNav ? 'text-white' : 'text-[var(--color-primary)]'
+                    )}
+                  >
+                    <FontAwesomeIcon icon={faBars} />
                   </i>
                 }
-                onClick={toggleTheme}
+                onClick={() => {
+                  setIsOpenResponsiveNav(prev => !prev);
+                  setIsOpenModalSearch(false);
+                }}
+                isActive={isOpenResponsiveNav}
               />
+
+              {isOpenResponsiveNav && (
+                <ModalDisplayContent classname="right-0">
+                  <ResponsiveModalContent
+                    inputValue={inputValue}
+                    handleInputChange={handleInputChange}
+                    debouncedInput={debouncedInput}
+                    rawCoin={rawCoin}
+                    rawCoinLoading={rawCoinLoading}
+                    isActiveHeart={isActiveHeart}
+                  />
+                </ModalDisplayContent>
+              )}
             </li>
 
-            {navButtons?.map((btn, index) => (
-              <li key={index}>
-                <a className="group text-sm" href={btn?.href}>
-                  <Button
-                    variant={btn?.variant}
-                    label={
-                      <i className={clsx(btn?.colorClass, 'group-active:text-[white] px-1')}>
-                        <FontAwesomeIcon icon={btn?.icon} />
-                      </i>
-                    }
-                    onClick={() => {}}
-                  />
-                </a>
-              </li>
-            ))}
+            <li className="hidden md:block relative">
+              <Button
+                variant={BUTTON_VARIANT.INFO}
+                label={
+                  <i
+                    className={clsx(
+                      'px-1 group-active:text-[white]',
+                      isOpenModalSearch ? 'text-white' : 'text-[var(--color-info)]'
+                    )}
+                  >
+                    <FontAwesomeIcon icon={faSearch} />
+                  </i>
+                }
+                onClick={() => {
+                  setIsOpenModalSearch(!isOpenModalSearch);
+                  setIsOpenResponsiveNav(false);
+                }}
+                isActive={isOpenModalSearch}
+              />
 
-            <li className="md:hidden">
-              <a className="group text-sm " href="/#">
-                <Button
-                  variant={BUTTON_VARIANT.PRIMARY}
-                  label={
-                    <i className="text-[var(--color-primary)] group-active:text-[white] px-1">
-                      <FontAwesomeIcon icon={faBars} />
-                    </i>
-                  }
-                  onClick={() => {}}
-                />
-              </a>
+              {isOpenModalSearch && (
+                <ModalDisplayContent classname="right-0">
+                  <ResponsiveModalContent
+                    inputValue={inputValue}
+                    handleInputChange={handleInputChange}
+                    debouncedInput={debouncedInput}
+                    rawCoin={rawCoin}
+                    rawCoinLoading={rawCoinLoading}
+                    isActiveHeart={isActiveHeart}
+                  />
+                </ModalDisplayContent>
+              )}
             </li>
           </ul>
         </div>

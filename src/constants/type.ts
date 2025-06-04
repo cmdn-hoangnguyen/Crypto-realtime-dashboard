@@ -1,5 +1,15 @@
 import type { CURRENCY, HEADER_LABEL, SORT_VALUE } from './enum';
 
+export interface RawCoin {
+  id: string;
+  name: string;
+  symbol: string;
+  api_symbol: string;
+  market_cap_rank: number;
+  thumb: string;
+  large: string;
+}
+
 export interface CoinMarket {
   id: string;
   symbol: string;

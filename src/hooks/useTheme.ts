@@ -1,26 +1,27 @@
 import { useEffect, useState } from 'react';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
+import { LOCAL_STORAGE_KEY, THEME } from '../constants/enum';
 
 export const useTheme = () => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = useState<THEME>(THEME.DARK);
 
-  const savedTheme = getLocalStorage<'light' | 'dark'>('theme');
+  const savedTheme = getLocalStorage<THEME>(LOCAL_STORAGE_KEY.THEME);
 
   useEffect(() => {
-    setTheme(savedTheme ?? 'dark');
+    setTheme(savedTheme ?? THEME.DARK);
   }, []);
 
   useEffect(() => {
     if (typeof document === 'undefined') return;
 
     const root = document.documentElement;
-    root.classList.remove('light', 'dark');
+    root.classList.remove(THEME.LIGHT, THEME.DARK);
     root.classList.add(theme);
-    setLocalStorage('theme', theme);
+    setLocalStorage(LOCAL_STORAGE_KEY.THEME, theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+    setTheme(prev => (prev === THEME.LIGHT ? THEME.DARK : THEME.LIGHT));
   };
 
   return { theme, toggleTheme };

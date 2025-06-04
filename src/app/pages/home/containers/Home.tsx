@@ -1,4 +1,4 @@
-import { useEffect, useState, type ChangeEventHandler } from 'react';
+import { useEffect, useRef, useState, type ChangeEventHandler } from 'react';
 
 import Container from '../../../../components/Container';
 import SearchInput from '../../../../components/SearchInput';
@@ -36,6 +36,8 @@ const Home = () => {
   const [isCurrencySelectOpen, setIsCurrencySelectOpen] = useState(false);
   const [isTotalItemsSelectOpen, setIsTotalItemsSelectOpen] = useState(false);
 
+  const tableRef = useRef<HTMLDivElement>(null);
+
   const debouncedInput = useDebounce({ value: inputValue });
 
   const { displayedCoin, displayedCoinLength, coinsLoading, searchCoinLoading } =
@@ -65,6 +67,7 @@ const Home = () => {
 
   const handlePagination = (page: number) => {
     setCurrentPage(page);
+    tableRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -72,6 +75,10 @@ const Home = () => {
       setCurrentPage(1);
     }
   }, [debouncedInput]);
+
+  useEffect(() => {
+    window.scroll({ top: 0, behavior: 'smooth' });
+  }, []);
 
   return (
     <main className="main-home pt-20">
@@ -82,26 +89,24 @@ const Home = () => {
             subTitle="Discover the most talked-about cryptocurrencies and market movers now!"
           >
             <div className="grid grid-cols-12 gap-6 mb-12">
-              <div className="max-h-[280px] lg:col-span-4 col-span-12 flex flex-col justify-between h-[280px]">
-                <div className="max-h-[280px] lg:col-span-4 col-span-12 flex flex-col justify-between h-[280px]">
-                  <RenderGlobal
-                    title="Total market"
-                    value={globalMarket?.total_market_cap?.[currency] ?? 0}
-                    currency={currency}
-                    subtitle="Market Cap"
-                    imgUrl="https://www.coingecko.com/total_market_cap.svg"
-                    alt="Market Cap"
-                  />
+              <div className="lg:h-[280px] sm:h-[296px] h-[280px] lg:col-span-4 col-span-12 flex flex-col justify-between">
+                <RenderGlobal
+                  title="Total market"
+                  value={globalMarket?.total_market_cap?.[currency] ?? 0}
+                  currency={currency}
+                  subtitle="Market Cap"
+                  imgUrl="https://www.coingecko.com/total_market_cap.svg"
+                  alt="Market Cap"
+                />
 
-                  <RenderGlobal
-                    title="Total volume"
-                    value={globalMarket?.total_volume?.[currency] ?? 0}
-                    currency={currency}
-                    subtitle="24H trading volume"
-                    imgUrl="https://www.coingecko.com/total_volume.svg"
-                    alt="Total volume"
-                  />
-                </div>
+                <RenderGlobal
+                  title="Total volume"
+                  value={globalMarket?.total_volume?.[currency] ?? 0}
+                  currency={currency}
+                  subtitle="24H trading volume"
+                  imgUrl="https://www.coingecko.com/total_volume.svg"
+                  alt="Total volume"
+                />
               </div>
 
               <div className="lg:col-span-4 col-span-12">
@@ -142,7 +147,10 @@ const Home = () => {
             subTitle="Get a real-time overview of the crypto market, including prices, trends, and top assets."
           >
             <Paper className="mb-6">
-              <div className="flex flex-col md:flex-row gap-4 justify-between md:items-center items-end">
+              <div
+                className="flex flex-col md:flex-row gap-4 justify-between md:items-center items-end"
+                ref={tableRef}
+              >
                 <TableTitle
                   label={
                     <span className="text-[var(--text-primary)] flex gap-2">

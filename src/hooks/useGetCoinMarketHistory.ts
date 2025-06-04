@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 
 import { endpointGetCoinHistory, endpointGetSingleCoinHistory } from '../constants/api';
-import { fetcher } from '../libs/axios';
+import { fetcher } from '../libs/fetcher';
 import { CURRENCY } from '../constants/enum';
 import type { CoinHistory, CoinMarketHistory } from '../constants/type';
 
@@ -20,7 +20,7 @@ const useGetCoinMarketHistory = ({ coinId, currency = CURRENCY.USD, days = 7 }: 
     }),
     fetcher,
     {
-      dedupingInterval: 60000,
+      dedupingInterval: 30000,
       revalidateOnFocus: false,
     }
   );
@@ -39,7 +39,7 @@ const useGetCoinMarketHistory = ({ coinId, currency = CURRENCY.USD, days = 7 }: 
     endpointGetSingleCoinHistory({ coinId: coinId, currency: currency }),
     fetcher,
     {
-      dedupingInterval: 60000,
+      dedupingInterval: 30000,
       revalidateOnFocus: false,
     }
   );

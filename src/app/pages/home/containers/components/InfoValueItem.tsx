@@ -20,12 +20,12 @@ export const InfoValueItem = <T,>({ data, getIcon, getName, getValue, getChange 
         <span className="text-[var(--text-secondary)] text-sm font-semibold">{getName(data)}</span>
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col items-end">
         <span className="text-[var(--text-primary)] font-semibold text-right">
           {getValue(data)}
         </span>
         <span className="w-20">
-          <ValueDirection value={getChange(data)} />
+          <ValueDirection classname="justify-end" value={getChange(data)} />
         </span>
       </div>
     </div>

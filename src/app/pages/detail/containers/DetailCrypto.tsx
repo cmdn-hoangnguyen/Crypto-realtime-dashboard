@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Container from '../../../../components/Container';
 import DetailChart from './components/DetailChart';
 import { CURRENCY, DETAIL_INFO } from '../../../../constants/enum';
@@ -6,17 +6,19 @@ import { useParams } from 'react-router-dom';
 import useGetCoinMarketHistory from '../../../../hooks/useGetCoinMarketHistory';
 import { formatValue, getColorByValue, getCurrency } from '../../../../utils/common';
 import { Button } from '../../../../components/Button';
-import { dayOptions } from '../../../../constants/data';
+import { currencyOptions, dayOptions } from '../../../../constants/data';
 import ValueDirection from '../../../../components/ValueDirection';
 import { DetailInfoList } from './components/DetailInfoList';
 import { useGetDetailMarketInfo } from '../hooks/useGetMarketInfo';
 import { useGetCoinInfo } from '../hooks/useGetCoinInfo';
 import { DetailPriceChange } from './components/DetailPriceChange';
 import { Paper } from '../../../../components/Paper';
+import { CustomSelect } from '../../../../components/Select';
 
 const DetailCrypto = () => {
-  const [currency] = useState<CURRENCY>(CURRENCY.USD);
+  const [currency, setCurrency] = useState<CURRENCY>(CURRENCY.USD);
   const [days, setDays] = useState<number>(7);
+  const [isCurrencySelectOpen, setIsCurrencySelectOpen] = useState(false);
 
   const { id } = useParams();
 
@@ -47,44 +49,44 @@ const DetailCrypto = () => {
 
   const renderDetailInfoList = [
     {
-      data: (() => {
-        return (
-          <>
-            {marketInfo && (
-              <DetailInfoList<number>
-                title="Market info"
-                data={marketInfo}
-                currency={currency}
-                detailInfo={DETAIL_INFO.MARKET}
-              />
-            )}
-          </>
-        );
-      })(),
+      data: (() => (
+        <>
+          {marketInfo && (
+            <DetailInfoList<number>
+              title="Market info"
+              data={marketInfo}
+              currency={currency}
+              detailInfo={DETAIL_INFO.MARKET}
+            />
+          )}
+        </>
+      ))(),
     },
     {
-      data: (() => {
-        return (
-          <>
-            {coinInfo && (
-              <DetailInfoList<string>
-                title="Coin info"
-                data={coinInfo}
-                currency={currency}
-                detailInfo={DETAIL_INFO.COIN}
-              />
-            )}
-          </>
-        );
-      })(),
+      data: (() => (
+        <>
+          {coinInfo && (
+            <DetailInfoList<string>
+              title="Coin info"
+              data={coinInfo}
+              currency={currency}
+              detailInfo={DETAIL_INFO.COIN}
+            />
+          )}
+        </>
+      ))(),
     },
   ];
+
+  useEffect(() => {
+    window.scroll({ top: 0, behavior: 'smooth' });
+  }, []);
 
   return (
     <main className="detail-main pt-20">
       <Container>
         <div className="grid grid-cols-12 xl:gap-0 gap-y-12">
-          <section className="xl:col-span-4 col-span-12 xl:pr-12 xl:border-r xl:border-solid xl:border-[var(--border-default)]">
+          <section className="xl:col-span-4 col-span-12 xl:pr-12 xl:border-r xl:border-solid xl:border-[var(--border-default)] order-1 xl:order-none">
             <div className="flex flex-col gap-4">
               <h2 className="flex items-start gap-2">
                 <div className="max-w-8">
@@ -96,9 +98,13 @@ const DetailCrypto = () => {
                     {detailHistory?.name}
                   </span>
 
-                  <span className="text-[var(--text-secondary)] text-sm uppercase flex gap-2">
+                  <span className="text-[var(--text-secondary)] text-sm uppercase flex">
+                    <span className="text-sm mr-1">#{detailHistory?.market_cap_rank}</span>
                     {detailHistory?.symbol}
-                    <ValueDirection value={getDataByCondition()?.priceChange ?? 0} />
+                    <ValueDirection
+                      classname="ml-2"
+                      value={getDataByCondition()?.priceChange ?? 0}
+                    />
                   </span>
                 </span>
               </h2>
@@ -121,21 +127,32 @@ const DetailCrypto = () => {
           </section>
 
           <section className="xl:col-span-8 col-span-12 xl:pl-12">
-            <div className="flex items-center justify-between">
-              <Paper className="w-full mb-6">
-                <ul className="flex gap-2">
-                  {dayOptions?.map(option => (
-                    <li key={option?.value}>
-                      <Button
-                        label={option?.label}
-                        isActive={days === option.value}
-                        onClick={() => setDays(option?.value)}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </Paper>
-            </div>
+            <Paper className="w-full mb-6 flex items-center justify-between">
+              <ul className="flex gap-2">
+                {dayOptions?.map(option => (
+                  <li key={option?.value}>
+                    <Button
+                      label={option?.label}
+                      isActive={days === option.value}
+                      onClick={() => setDays(option?.value)}
+                    />
+                  </li>
+                ))}
+              </ul>
+
+              <Button
+                label={
+                  <CustomSelect<CURRENCY>
+                    value={currency}
+                    onChange={setCurrency}
+                    options={currencyOptions}
+                    isOpen={isCurrencySelectOpen}
+                    setIsOpen={setIsCurrencySelectOpen}
+                  />
+                }
+                onClick={() => setIsCurrencySelectOpen(!isCurrencySelectOpen)}
+              />
+            </Paper>
 
             {detailHistory && (
               <DetailChart
@@ -148,8 +165,6 @@ const DetailCrypto = () => {
             {detailHistory && (
               <DetailPriceChange classname="my-12" data={detailHistory} currency={currency} />
             )}
-
-            {/* {detailHistory?.description?.[LANGUAGE.en]} */}
           </section>
         </div>
       </Container>

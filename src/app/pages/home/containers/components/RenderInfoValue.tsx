@@ -10,7 +10,7 @@ interface Props<T> {
 export const RenderInfoValue = <T,>({ data, renderItem, title }: Props<T>) => {
   return (
     <Paper className="flex flex-col gap-2">
-      <h3 className="text-[var(--text-primary)] font-semibold uppercase h-8 flex items-center">
+      <h3 className="text-[var(--text-primary)] flex items-center lg:justify-start justify-center font-semibold uppercase h-8 ">
         {title}
       </h3>
 

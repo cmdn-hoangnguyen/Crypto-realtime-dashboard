@@ -10,7 +10,7 @@ export const Footer = () => {
           <div className="xl:col-span-4 col-span-12 flex flex-col gap-2 xl:pr-2 mb-8">
             <LogoText isHeader={false} />
 
-            <p className="md:text-lg text-sm text-[var(--text-secondary)] w-96 max-w-full">
+            <p className="md:text-lg text-sm text-[var(--text-secondary)] ">
               LegitCrypto offers essential crypto market insights by tracking prices, volumes,
               market cap, community growth, open-source activity, major events, and on-chain
               metrics.
@@ -33,7 +33,7 @@ export const Footer = () => {
         </div>
       </Container>
 
-      <div className="text-[var(--text-secondary)] border-t border-solid border-[var(--border-default)] text-center py-4">
+      <div className="text-[var(--text-secondary)] text-center md:text-lg text-sm border-t border-solid border-[var(--border-default)] py-4">
         © All rights reserved - CMDN-HoangNguyen
       </div>
     </footer>

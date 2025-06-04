@@ -1,6 +1,6 @@
 import type { CURRENCY } from '../../../../constants/enum';
 import type { CoinHistory } from '../../../../constants/type';
-import { getCurrency } from '../../../../utils/common';
+import { formatValue, getCurrency } from '../../../../utils/common';
 
 export const useGetCoinInfo = ({
   detailHistory,
@@ -9,6 +9,10 @@ export const useGetCoinInfo = ({
   detailHistory: CoinHistory;
   currency: CURRENCY;
 }) => {
+  const formatRange = (inputValue: number) => {
+    return `${getCurrency(currency)}${formatValue(inputValue ?? 0)}`;
+  };
+
   return [
     {
       label: 'Website',
@@ -16,7 +20,7 @@ export const useGetCoinInfo = ({
     },
     {
       label: '24H Range',
-      value: `${getCurrency(currency)}${detailHistory?.market_data?.low_24h?.[currency]} - ${getCurrency(currency)}${detailHistory?.market_data?.high_24h?.[currency]}`,
+      value: `${formatRange(detailHistory?.market_data?.low_24h?.[currency] ?? 0)} - ${formatRange(detailHistory?.market_data?.high_24h?.[currency] ?? 0)}`,
     },
   ];
 };
