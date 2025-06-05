@@ -52,7 +52,7 @@ const DetailCrypto = () => {
   }, []);
 
   return (
-    <main className="detail-main pt-20">
+    <main className="detail-main pt-20 min-h-[50vh]">
       <Container>
         <div className="grid grid-cols-12 xl:gap-0 gap-y-12">
           <section className="xl:col-span-4 col-span-12 xl:pr-12 xl:border-r xl:border-solid xl:border-[var(--border-default)] order-1 xl:order-none">
