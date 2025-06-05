@@ -80,7 +80,7 @@ const Home = () => {
 
   // Debouncing for search input
   useEffect(() => {
-    if (debouncedInput.length > 2) {
+    if (debouncedInput.length > 2 || debouncedInput.length === 0) {
       setCurrentPage(1);
     }
   }, [debouncedInput]);
