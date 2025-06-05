@@ -1,55 +1,103 @@
-# React + TypeScript + Vite
+# Crypto Realtime Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A real-time cryptocurrency dashboard built with React, TypeScript, and Vite. It fetches and displays live crypto data from the free CoinGecko API, with features like infinite scrolling, favorites, detailed coin info, and dark/light mode.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
 
-## Expanding the ESLint configuration
+- [Project Description](#project-description)
+- [Features](#features)
+- [Pages Description](#pages-description)
+- [Recommended Technologies](#recommended-technologies)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [License](#license)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Project Description
+
+This dashboard shows real-time data of popular cryptocurrencies with live updates every 5 seconds. Users can search coins, mark favorites, and view detailed charts and stats for each coin.
+
+---
+
+## Features
+
+### Home Page – Coin List
+
+- Displays popular cryptocurrencies (e.g. Bitcoin, Ethereum)
+- Infinite scrolling or pagination for loading more coins
+- Each coin displays:
+  - Logo and name
+  - Current price in USD
+  - 24-hour price change percentage
+  - 24-hour trading volume
+  - 7-day sparkline chart
+  - Favorite button (⭐)
+- Auto-refresh prices every 5 seconds
+- Highlights price changes with color and arrows (green/red, ▲/▼)
+- Search bar to filter coins by name
+- Dark/light mode toggle with persistence
+
+### Coin Detail Page
+
+- Shows:
+  - Current price
+  - Percentage changes (1h, 24h, 7d)
+  - Market cap, volume, rank
+  - Large price history chart (7 or 30 days)
+
+### Favorites List
+
+- Favorite coins via ⭐ button
+- Persist favorites in `localStorage`
+- Separate tab/page for favorites
+
+### Dark / Light Mode (Optional)
+
+- Toggle switch for theme
+- Persist theme choice in `localStorage`
+
+---
+
+## Pages Description
+
+- `/` — Home page with coin list, search, and favorites
+- `/detail/:id` — Detail page with full coin data and charts
+- `/favorites` — Favorites list page
+
+---
+
+## Recommended Technologies
+
+- **Framework:** React + TypeScript + Vite
+- **Styling:** CSS (plain or framework)
+- **Charts:** Chart.js
+- **API:** CoinGecko API (free & public) and Mock Service Worker for development
+
+---
+
+## Getting Started
+
+```bash
+git clone https://github.com/cmdn-hoangnguyen/Crypto-realtime-dashboard.git
+cd crypto-realtime-dashboard
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Usage
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
-# Crypto-realtime-dashboard
+- View the home page to browse coins
+- Use search to filter coins by name or search the whole list
+- Add favorite coins
+- Access favorites in the Favorites tab
+- Click a coin to view details with charts
+- Toggle dark/light mode with the theme switch
+
+## License
+
+Classmethod © 2025 Hoang nguyen
