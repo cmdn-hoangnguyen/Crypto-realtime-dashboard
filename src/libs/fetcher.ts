@@ -10,24 +10,35 @@ export const axiosInstance = axios.create({
   timeout: 15000,
 });
 
+const shownErrors = new Set<string>();
+
 export const fetcher = async (url: string) => {
   try {
     const response = await axiosInstance.get(url);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      if (!error.response) {
-        if (error.code === AXIOS_ERROR_CODE.TIMEOUT) {
-          showErrorToast(AXIOS_ERROR_MESSAGES[AXIOS_ERROR_CODE.TIMEOUT]);
-        } else {
-          showErrorToast(AXIOS_ERROR_MESSAGES.NO_RESPONSE);
-        }
-      } else {
-        const status = error.response.status;
+      const errorCode = error.code || error.response?.status?.toString() || 'unknown';
 
-        if (status === AXIOS_ERROR_CODE.TOO_MANY_REQUESTS) {
-          showErrorToast(AXIOS_ERROR_MESSAGES[AXIOS_ERROR_CODE.TOO_MANY_REQUESTS]);
+      if (!shownErrors.has(errorCode)) {
+        shownErrors.add(errorCode);
+
+        if (!error.response) {
+          if (error.code === AXIOS_ERROR_CODE.TIMEOUT) {
+            showErrorToast(AXIOS_ERROR_MESSAGES[AXIOS_ERROR_CODE.TIMEOUT]);
+          } else {
+            showErrorToast(AXIOS_ERROR_MESSAGES.NO_RESPONSE);
+          }
+        } else {
+          const status = error.response.status;
+          if (status === AXIOS_ERROR_CODE.TOO_MANY_REQUESTS) {
+            showErrorToast(AXIOS_ERROR_MESSAGES[AXIOS_ERROR_CODE.TOO_MANY_REQUESTS]);
+          }
         }
+
+        setTimeout(() => {
+          shownErrors.delete(errorCode);
+        }, 5000);
       }
     } else {
       toast.error('Unexpected error occurred.');

@@ -35,7 +35,7 @@ export const Footer = () => {
         </div>
       </Container>
 
-      <div className="text-[var(--text-secondary)] text-center md:text-lg text-sm border-t border-solid border-[var(--border-default)] py-4">
+      <div className="text-[var(--text-secondary)] text-center text-sm border-t border-solid border-[var(--border-default)] py-4">
         © All rights reserved - CMDN-HoangNguyen
       </div>
     </footer>
