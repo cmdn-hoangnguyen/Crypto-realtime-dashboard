@@ -1,10 +1,11 @@
 import { rest } from 'msw';
 
 import data from './mockData.json';
+import type { CoinMarket } from '../constants/type';
 
-let mockData = [...data];
+let mockData: CoinMarket[] = [...data];
 
-function randomizePrice(data: any[]) {
+function randomizePrice(data: CoinMarket[]) {
   return data.map((coin, index) => {
     if (index < 10) {
       const change = Math.random() * 0.1 - 0.05;
