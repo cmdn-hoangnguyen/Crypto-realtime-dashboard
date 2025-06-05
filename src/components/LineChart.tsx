@@ -20,7 +20,7 @@ interface Props {
   height?: number;
 }
 
-const LineChart = ({ prices, weekChangeData, width = 200, height = 50 }: Props) => {
+const LineChart = ({ prices, weekChangeData, width = 150, height = 50 }: Props) => {
   const chartData = {
     labels: new Array(prices.length).fill(''),
     datasets: [

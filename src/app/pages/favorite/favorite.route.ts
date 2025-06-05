@@ -4,7 +4,7 @@ const Favorite = React.lazy(() => import('./containers/Favorite'));
 
 const favoriteRoute = [
   {
-    path: '/favorite/:id',
+    path: '/favorite',
     element: Favorite,
   },
 ];

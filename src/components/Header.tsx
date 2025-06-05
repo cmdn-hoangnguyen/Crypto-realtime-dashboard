@@ -1,50 +1,133 @@
-import { faHeart, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useState, type ChangeEventHandler } from 'react';
 
+import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
+
+import { Button } from './Button';
 import Container from './Container';
-import RoundedItem from './RoundedItem';
+import { LogoText } from './LogoText';
+import { ModalDisplayContent } from './ModalDisplayContent';
+import { ResponsiveModalContent } from './ResponsiveModalContent';
+import { ResponsiveNavButtons } from './ResponsiveNavButtons';
+import { headerNavigate } from '../constants/data';
+import { BUTTON_VARIANT, CURRENCY, PATHNAME } from '../constants/enum';
+import useDebounce from '../hooks/useDebounce';
+import useSearchCoin from '../hooks/useSearchCoin';
 
 const Header = () => {
+  const [currency] = useState(CURRENCY.USD);
+  const [isOpenModalSearch, setIsOpenModalSearch] = useState<boolean>(false);
+  const [isOpenResponsiveNav, setIsOpenResponsiveNav] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>('');
+
+  const debouncedInput = useDebounce({ value: inputValue });
+
+  const pathname = location.pathname;
+  const isActiveHeart = pathname === `/${PATHNAME.FAVORITE}`;
+
+  const handleInputChange: ChangeEventHandler<HTMLInputElement> = event => {
+    setInputValue(event.target.value);
+  };
+
+  const { rawCoin, rawCoinLoading } = useSearchCoin({
+    input: debouncedInput,
+    currency: currency,
+    currentPage: 1,
+    totalItems: 10,
+    isGetAll: false,
+  });
+
   return (
-    <header>
+    <header className="header fixed left-0 right-0 shadow-sm backdrop-blur-xl z-30">
       <Container>
         <div className="flex items-center justify-between">
-          <a href="/">
-            <div className="flex items-center">
-              <RoundedItem
-                content={
-                  <div className="max-w-10 max-h-10">
-                    <img src="/logo.ico" alt="Crypto" />
-                  </div>
-                }
-              />
+          <div className="flex items-center gap-6">
+            <LogoText isHeader />
 
-              <h1 className="text-xl font-bold tracking-tight">Legit Crypto</h1>
-            </div>
-          </a>
-
-          <div className="flex items-center gap-4">
-            <a className="text-sm" href="/favorite/#">
-              <div className="flex items-center gap-1">
-                <i className="text-[var(--color-error)]">
-                  <FontAwesomeIcon icon={faHeart} />
-                </i>
-                <span className="font-semibold">Favorite</span>
-              </div>
-            </a>
-
-            <form className="text-[var(--color-muted)] bg-[var(--bg-secondary)] p-2 rounded-md">
-              <i className="text-sm mr-1">
-                <FontAwesomeIcon icon={faSearch} />
-              </i>
-
-              <input
-                className="text-sm bg-transparent outline-none"
-                type="text"
-                placeholder="Search..."
-              />
-            </form>
+            <ul className="gap-4 md:flex hidden">
+              {headerNavigate?.map((item, index) => (
+                <li
+                  className="font-semibold text-[var(--text-primary)] hover:text-[var(--color-primary)]"
+                  key={index}
+                >
+                  <a href={item?.href}>{item?.label}</a>
+                </li>
+              ))}
+            </ul>
           </div>
+
+          <ul className="flex items-center gap-2">
+            <ResponsiveNavButtons classname="md:block hidden" isActiveHeart={isActiveHeart} />
+
+            <li className="md:hidden relative">
+              <Button
+                variant={BUTTON_VARIANT.PRIMARY}
+                label={
+                  <i
+                    className={clsx(
+                      'group-active:text-[white] px-1',
+                      isOpenResponsiveNav ? 'text-white' : 'text-[var(--color-primary)]'
+                    )}
+                  >
+                    <FontAwesomeIcon icon={faBars} />
+                  </i>
+                }
+                onClick={() => {
+                  setIsOpenResponsiveNav(prev => !prev);
+                  setIsOpenModalSearch(false);
+                }}
+                isActive={isOpenResponsiveNav}
+              />
+
+              {isOpenResponsiveNav && (
+                <ModalDisplayContent classname="right-0">
+                  <ResponsiveModalContent
+                    inputValue={inputValue}
+                    handleInputChange={handleInputChange}
+                    debouncedInput={debouncedInput}
+                    rawCoin={rawCoin}
+                    rawCoinLoading={rawCoinLoading}
+                    isActiveHeart={isActiveHeart}
+                  />
+                </ModalDisplayContent>
+              )}
+            </li>
+
+            <li className="hidden md:block relative">
+              <Button
+                variant={BUTTON_VARIANT.INFO}
+                label={
+                  <i
+                    className={clsx(
+                      'px-1 group-active:text-[white]',
+                      isOpenModalSearch ? 'text-white' : 'text-[var(--color-info)]'
+                    )}
+                  >
+                    <FontAwesomeIcon icon={faSearch} />
+                  </i>
+                }
+                onClick={() => {
+                  setIsOpenModalSearch(!isOpenModalSearch);
+                  setIsOpenResponsiveNav(false);
+                }}
+                isActive={isOpenModalSearch}
+              />
+
+              {isOpenModalSearch && (
+                <ModalDisplayContent classname="right-0">
+                  <ResponsiveModalContent
+                    inputValue={inputValue}
+                    handleInputChange={handleInputChange}
+                    debouncedInput={debouncedInput}
+                    rawCoin={rawCoin}
+                    rawCoinLoading={rawCoinLoading}
+                    isActiveHeart={isActiveHeart}
+                  />
+                </ModalDisplayContent>
+              )}
+            </li>
+          </ul>
         </div>
       </Container>
     </header>
