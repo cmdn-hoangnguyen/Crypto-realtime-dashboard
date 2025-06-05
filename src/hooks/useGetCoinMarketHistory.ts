@@ -1,17 +1,21 @@
 import useSWR from 'swr';
 
 import { endpointGetCoinHistory, endpointGetSingleCoinHistory } from '../constants/api';
-import { CURRENCY } from '../constants/enum';
+import { CURRENCY, TIME } from '../constants/enum';
 import type { CoinHistory, CoinMarketHistory } from '../constants/type';
 import { fetcher } from '../libs/fetcher';
 
 interface Props {
   coinId: string;
   currency?: CURRENCY;
-  days?: number;
+  days?: TIME;
 }
 
-const useGetCoinMarketHistory = ({ coinId, currency = CURRENCY.USD, days = 7 }: Props) => {
+const useGetCoinMarketHistory = ({
+  coinId,
+  currency = CURRENCY.USD,
+  days = TIME.SEVEN_DAY,
+}: Props) => {
   const { data, isLoading } = useSWR<CoinMarketHistory>(
     endpointGetCoinHistory({
       coinId: coinId,

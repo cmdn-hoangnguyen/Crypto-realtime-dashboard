@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 
 import { CoinRawInfoNavigation } from './CoinRawInfoNavigation';
 import { FlashColor } from './FlashColor';
@@ -51,16 +52,15 @@ const RenderTableCell = ({ headerLabel, data, currency, onFavoriteUpdated }: Pro
       case HEADER_LABEL.FAV:
         return (
           <div className="table-body-item-cell">
-            <button onClick={toggleFavorite}>
-              {isFavorite ? (
-                <i className="text-[var(--color-heart)]">
-                  <FontAwesomeIcon icon={faHeart} />
-                </i>
-              ) : (
-                <i className="hover:text-[var(--color-heart)] duration-150">
-                  <FontAwesomeIcon icon={isFavorite ? faHeart : farHeart} />
-                </i>
-              )}
+            <button type="button" onClick={toggleFavorite}>
+              <i
+                className={clsx(
+                  isFavorite && 'text-[var(--color-heart)]',
+                  'hover:text-[var(--color-heart)] duration-150'
+                )}
+              >
+                <FontAwesomeIcon icon={isFavorite ? faHeart : farHeart} />
+              </i>
             </button>
           </div>
         );

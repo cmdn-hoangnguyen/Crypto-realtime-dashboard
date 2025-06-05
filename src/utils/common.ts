@@ -4,17 +4,6 @@ export const getColorByValue = (value: number) => {
   return value > 0 ? '#22c55e' : '#dc2626';
 };
 
-export const getCurrency = (currency: CURRENCY) => {
-  switch (currency) {
-    case CURRENCY.USD:
-      return '$';
-    case CURRENCY.VN:
-      return 'đ';
-    default:
-      return '$';
-  }
-};
-
 export const formatValue = (value: number, decimalPlaces = 2) => {
   if (value === undefined || value === null) return;
 
@@ -67,8 +56,8 @@ export function formatCurrencyDisplay(value: string, currency: CURRENCY): string
   const formattedValue = value;
 
   return position === CURRENCY_POSITION.PREFIX
-    ? `${symbol} ${formattedValue}`
-    : `${formattedValue} ${symbol}`;
+    ? `${symbol}${formattedValue}`
+    : `${formattedValue}${symbol}`;
 }
 
 export const hexToRGBA = (hex: string, alpha: number) => {
