@@ -5,7 +5,6 @@ import { Button } from '../../../../../components/Button';
 import { errorData } from '../../../../../constants/data';
 import { BUTTON_VARIANT, type ERROR_TYPE } from '../../../../../constants/enum';
 
-
 interface Props {
   message: string;
   errorType?: ERROR_TYPE;

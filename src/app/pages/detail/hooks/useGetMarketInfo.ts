@@ -5,7 +5,7 @@ export const useGetDetailMarketInfo = ({
   detailHistory,
   currency,
 }: {
-  detailHistory: CoinHistory;
+  detailHistory: CoinHistory | undefined;
   currency: CURRENCY;
 }) => {
   if (!detailHistory) return [];
