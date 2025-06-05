@@ -30,8 +30,8 @@ const DetailCrypto = () => {
     days: days,
   });
 
-  const marketInfo = detailHistory && useGetDetailMarketInfo({ detailHistory, currency });
-  const coinInfo = detailHistory && useGetCoinInfo({ detailHistory, currency });
+  const marketInfo = useGetDetailMarketInfo({ detailHistory, currency });
+  const coinInfo = useGetCoinInfo({ detailHistory, currency });
 
   const getDataByCondition = () => {
     const data = detailHistory?.market_data;
