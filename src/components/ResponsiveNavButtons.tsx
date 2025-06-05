@@ -16,12 +16,15 @@ export const ResponsiveNavButtons = ({ isActiveHeart, classname }: Prop) => {
   const { theme, toggleTheme } = useTheme();
 
   const customPaperClass =
-    'md:hidden block font-semibold text-[var(--text-secondary)] text-sm bg-[var(--paper-bg)] py-[9px] rounded';
+    'md:hidden block font-semibold text-[var(--text-secondary)] text-sm border-none';
+
+  const listContentClass =
+    'flex items-center justify-between bg-[var(--paper-bg)] py-2 px-1 rounded-md';
 
   return (
     <>
       <li className={clsx(classname)}>
-        <div className="flex items-center justify-center gap-2">
+        <div className={listContentClass}>
           <Paper className={customPaperClass}>
             <span className="capitalize">{theme} mode</span>
           </Paper>
@@ -41,9 +44,9 @@ export const ResponsiveNavButtons = ({ isActiveHeart, classname }: Prop) => {
 
       <li className={clsx(classname)}>
         <a className="group text-sm" href={`/${PATHNAME.FAVORITE}`}>
-          <div className="flex items-center justify-center gap-2">
+          <div className={listContentClass}>
             <Paper className={customPaperClass}>
-              <span className="capitalize">Favorite list</span>
+              <span className="capitalize">Favorite</span>
             </Paper>
 
             <Button

@@ -1,4 +1,4 @@
-import type { CURRENCY } from './enum';
+import type { CURRENCY, TIME } from './enum';
 import type { FetchDataProps } from './type';
 
 export const ENDPOINTS = {
@@ -66,7 +66,7 @@ export const endpointGetCoinHistory = ({
 }: {
   coinId: string;
   currency: CURRENCY;
-  days: number;
+  days: TIME;
 }) => {
   return `${ENDPOINTS.COINS}/${coinId}/market_chart?vs_currency=${currency}&days=${days}`;
 };

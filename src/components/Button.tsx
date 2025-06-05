@@ -23,6 +23,7 @@ export const Button = ({
     <button
       className={clsx('btn-base min-w-10 group', isActive && 'btn-base-active', classname, variant)}
       onClick={onClick}
+      type="button"
     >
       {label}
     </button>

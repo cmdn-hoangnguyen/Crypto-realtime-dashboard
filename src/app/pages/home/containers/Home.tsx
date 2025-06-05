@@ -36,10 +36,13 @@ const Home = () => {
   const [isCurrencySelectOpen, setIsCurrencySelectOpen] = useState(false);
   const [isTotalItemsSelectOpen, setIsTotalItemsSelectOpen] = useState(false);
 
+  // Ref table for pagination
+  // Scroll on top when paginate
   const tableRef = useRef<HTMLDivElement>(null);
 
   const debouncedInput = useDebounce({ value: inputValue });
 
+  // Controller getting/searching coin market
   const { displayedCoin, displayedCoinLength, coinsLoading, searchCoinLoading } =
     useCoinMarketController({
       debouncedInput: debouncedInput,
@@ -49,14 +52,18 @@ const Home = () => {
       order: sort,
     });
 
+  // Get trending and categories data
   const [coinTrending, categoryTrending] = useRenderTrending({ currency });
 
+  // Global market information (Market cap & 24H global)
   const { globalMarket } = useGlobalMarket();
 
+  // Search input
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = event => {
     setInputValue(event.target.value);
   };
 
+  // Sort table
   const handleOnSortChange = (label: HEADER_LABEL) => {
     const sortMap = HEADER_SORT_MAPPING?.[label];
     if (!sortMap) return;
@@ -65,11 +72,13 @@ const Home = () => {
     setSort(prev => (prev === sortMap.desc ? sortMap.asc : sortMap.desc));
   };
 
+  // Handle pagination
   const handlePagination = (page: number) => {
     setCurrentPage(page);
     tableRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Debouncing for search input
   useEffect(() => {
     if (debouncedInput.length > 2) {
       setCurrentPage(1);
