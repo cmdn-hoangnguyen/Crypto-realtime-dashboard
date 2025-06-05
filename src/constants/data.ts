@@ -1,4 +1,4 @@
-import { CURRENCY, ERROR_TYPE, HEADER_LABEL, SORT_VALUE } from './enum';
+import { CURRENCY, ERROR_TYPE, HEADER_LABEL, SORT_VALUE, TIME } from './enum';
 import { AXIOS_ERROR_CODE } from './errorEnum';
 import type { TableTemplate } from './type';
 
@@ -129,10 +129,10 @@ export const headerNavigate = [
 ];
 
 export const dayOptions = [
-  { label: '24H', value: 1 },
-  { label: '7D', value: 7 },
-  { label: '30D', value: 30 },
-  { label: '1Y', value: 365 },
+  { label: '24H', value: TIME.ONE_DAY },
+  { label: '7D', value: TIME.SEVEN_DAY },
+  { label: '30D', value: TIME.ONE_MONTH },
+  { label: '1Y', value: TIME.ONE_YEAR },
 ];
 
 export const currencyOptions = Object.values(CURRENCY).map(currency => ({

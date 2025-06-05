@@ -48,7 +48,7 @@ export const DetailInfoList = <T,>({ title, data, currency, detailInfo }: Props<
             <div className="flex justify-between">
               <span className="text-[var(--text-secondary)]">{info?.label}</span>
 
-              <span className="text-[var(--text-primary)] font-semibold">
+              <span className="text-[var(--text-primary)] text-right font-semibold">
                 {renderData(info?.value, index)}
               </span>
             </div>

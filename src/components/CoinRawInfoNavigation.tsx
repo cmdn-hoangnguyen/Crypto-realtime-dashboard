@@ -9,9 +9,16 @@ interface Props {
   size: number;
   isRoundedIcon?: boolean;
   classname?: string;
+  isLarger?: boolean;
 }
 
-export const CoinRawInfoNavigation = ({ coin, size, classname, isRoundedIcon = false }: Props) => {
+export const CoinRawInfoNavigation = ({
+  coin,
+  size,
+  classname,
+  isRoundedIcon = false,
+  isLarger = false,
+}: Props) => {
   const coinLogo = () => {
     const imageSrc = 'thumb' in coin ? coin.thumb : coin.image;
 
@@ -25,8 +32,8 @@ export const CoinRawInfoNavigation = ({ coin, size, classname, isRoundedIcon = f
       <div className="flex items-center gap-2">
         {isRoundedIcon ? <RoundedItem content={coinLogo()} /> : coinLogo()}
 
-        <div className="flex flex-col w-40 max-w-[50%]">
-          <span className="text-[var(--text-primary)] font-semibold w-full max-w-[30vw] truncate">
+        <div className={clsx(isLarger ? 'w-60' : 'w-40', 'flex flex-col max-w-[50%]')}>
+          <span className="text-[var(--text-primary)] font-semibold w-full max-w-[40vw] truncate">
             {coin?.name}
           </span>
           <span className="text-[var(--text-secondary)] sm:text-sm text-[12px] uppercase">

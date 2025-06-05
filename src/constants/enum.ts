@@ -80,3 +80,10 @@ export enum CURRENCY_POSITION {
   PREFIX = 'prefix',
   SUFFIX = 'suffix',
 }
+
+export enum TIME {
+  ONE_DAY = '1',
+  SEVEN_DAY = '7',
+  ONE_MONTH = '30',
+  ONE_YEAR = '365',
+}

@@ -3,27 +3,31 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import DetailChart from './components/DetailChart';
-import { DetailInfoList } from './components/DetailInfoList';
 import { DetailPriceChange } from './components/DetailPriceChange';
+import { renderDetailInfoList } from './components/RenderDetailInfoList';
 import { Button } from '../../../../components/Button';
 import Container from '../../../../components/Container';
 import { Paper } from '../../../../components/Paper';
 import { CustomSelect } from '../../../../components/Select';
 import ValueDirection from '../../../../components/ValueDirection';
 import { currencyOptions, dayOptions } from '../../../../constants/data';
-import { CURRENCY, DETAIL_INFO } from '../../../../constants/enum';
+import { CURRENCY, TIME } from '../../../../constants/enum';
 import useGetCoinMarketHistory from '../../../../hooks/useGetCoinMarketHistory';
-import { formatCurrencyDisplay, formatValue, getColorByValue } from '../../../../utils/common';
+import { formatCurrencyDisplay, formatValue } from '../../../../utils/common';
 import { useGetCoinInfo } from '../hooks/useGetCoinInfo';
+import { getDetailHistoryByCondition } from '../hooks/useGetDetailHistoryByConditions';
 import { useGetDetailMarketInfo } from '../hooks/useGetMarketInfo';
 
 const DetailCrypto = () => {
   const [currency, setCurrency] = useState<CURRENCY>(CURRENCY.USD);
-  const [days, setDays] = useState<number>(7);
+  const [days, setDays] = useState<TIME>(TIME.SEVEN_DAY);
   const [isCurrencySelectOpen, setIsCurrencySelectOpen] = useState(false);
 
   const { id } = useParams();
 
+  // Get priceHistory and detailHistory data
+  // Detail history will display coin information
+  // Price handle market information
   const { priceHistory, detailHistory } = useGetCoinMarketHistory({
     coinId: id ?? '',
     currency: currency,
@@ -33,52 +37,15 @@ const DetailCrypto = () => {
   const marketInfo = useGetDetailMarketInfo({ detailHistory, currency });
   const coinInfo = useGetCoinInfo({ detailHistory, currency });
 
-  const getDataByCondition = () => {
-    const data = detailHistory?.market_data;
+  // Detail Info by currency
+  const detailInfo = renderDetailInfoList({
+    marketInfo,
+    coinInfo,
+    currency,
+  });
 
-    const changeMap: Record<number, number | undefined> = {
-      1: data?.price_change_percentage_24h,
-      7: data?.price_change_percentage_7d,
-      30: data?.price_change_percentage_30d,
-      365: data?.price_change_percentage_1y,
-    };
-
-    const priceChange = changeMap[days] ?? data?.price_change_percentage_7d ?? 0;
-    const color = getColorByValue(priceChange ?? 0);
-
-    return { priceChange, color };
-  };
-
-  const renderDetailInfoList = [
-    {
-      data: (() => (
-        <>
-          {marketInfo && (
-            <DetailInfoList<number>
-              title="Market info"
-              data={marketInfo}
-              currency={currency}
-              detailInfo={DETAIL_INFO.MARKET}
-            />
-          )}
-        </>
-      ))(),
-    },
-    {
-      data: (() => (
-        <>
-          {coinInfo && (
-            <DetailInfoList<string>
-              title="Coin info"
-              data={coinInfo}
-              currency={currency}
-              detailInfo={DETAIL_INFO.COIN}
-            />
-          )}
-        </>
-      ))(),
-    },
-  ];
+  // Detail Info by days (for chart)
+  const getDetailInfo = getDetailHistoryByCondition({ detailHistory, days });
 
   useEffect(() => {
     window.scroll({ top: 0, behavior: 'smooth' });
@@ -103,10 +70,7 @@ const DetailCrypto = () => {
                   <span className="text-[var(--text-secondary)] text-sm uppercase flex">
                     <span className="text-sm mr-1">#{detailHistory?.market_cap_rank}</span>
                     {detailHistory?.symbol}
-                    <ValueDirection
-                      classname="ml-2"
-                      value={getDataByCondition()?.priceChange ?? 0}
-                    />
+                    <ValueDirection classname="ml-2" value={getDetailInfo?.priceChange ?? 0} />
                   </span>
                 </span>
               </h2>
@@ -121,7 +85,7 @@ const DetailCrypto = () => {
               </strong>
 
               <div className="grid grid-cols-12 gap-6">
-                {renderDetailInfoList?.map((item, index) => (
+                {detailInfo?.map((item, index) => (
                   <Paper className="xl:col-span-12 md:col-span-6 col-span-12 h-fit" key={index}>
                     {item?.data}
                   </Paper>
@@ -161,7 +125,7 @@ const DetailCrypto = () => {
             {detailHistory && (
               <DetailChart
                 priceHistory={priceHistory ?? []}
-                color={getDataByCondition()?.color}
+                color={getDetailInfo?.color}
                 currency={currency}
               />
             )}
