@@ -24,9 +24,9 @@ export const ResponsiveModalContent = ({
   isActiveHeart,
 }: Props) => {
   return (
-    <div className="flex flex-col gap-2 w-[320px] max-w-[80vw]">
-      <ul className="md:hidden flex justify-between mb-2">
-        <ResponsiveNavButtons isActiveHeart={isActiveHeart} />
+    <div className="flex flex-col gap-2 w-[300px] max-w-[90vw]">
+      <ul className="grid grid-cols-12 gap-2 md:hidden justify-between mb-2">
+        <ResponsiveNavButtons classname="col-span-6" isActiveHeart={isActiveHeart} />
       </ul>
 
       <SearchInput
@@ -42,7 +42,7 @@ export const ResponsiveModalContent = ({
           {rawCoin?.length ? (
             rawCoin.map((coin: RawCoin) => (
               <li key={coin.id} className="p-2 bg-[var(--bg-muted)] rounded-md">
-                <CoinRawInfoNavigation coin={coin} size={32} />
+                <CoinRawInfoNavigation coin={coin} size={32} isLarger />
               </li>
             ))
           ) : (
