@@ -1,4 +1,4 @@
-import { CURRENCY } from '../constants/enum';
+import { CURRENCY, CURRENCY_POSITION } from '../constants/enum';
 
 export const getColorByValue = (value: number) => {
   return value > 0 ? '#22c55e' : '#dc2626';
@@ -52,6 +52,24 @@ export const formatHugeNumber = (value: number, digits: number = 2): string => {
 export const renderParagraph = (input: string) => {
   return input.replace(/\r?\n/g, '');
 };
+
+const currencyDisplayMap: Record<CURRENCY, { symbol: string; position: CURRENCY_POSITION }> = {
+  [CURRENCY.USD]: { symbol: '$', position: CURRENCY_POSITION.PREFIX },
+  [CURRENCY.VN]: { symbol: '₫', position: CURRENCY_POSITION.SUFFIX },
+};
+
+export function formatCurrencyDisplay(value: string, currency: CURRENCY): string {
+  const { symbol, position } = currencyDisplayMap[currency] || {
+    symbol: currency.toUpperCase(),
+    position: CURRENCY_POSITION.PREFIX,
+  };
+
+  const formattedValue = value;
+
+  return position === CURRENCY_POSITION.PREFIX
+    ? `${symbol} ${formattedValue}`
+    : `${formattedValue} ${symbol}`;
+}
 
 export const hexToRGBA = (hex: string, alpha: number) => {
   let r = 0,

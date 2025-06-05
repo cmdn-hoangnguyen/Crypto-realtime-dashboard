@@ -10,7 +10,7 @@ import LineChart from './LineChart';
 import ValueDirection from './ValueDirection';
 import { HEADER_LABEL, LOCAL_STORAGE_KEY, type CURRENCY } from '../constants/enum';
 import type { CoinMarket } from '../constants/type';
-import { formatValue, getCurrency } from '../utils/common';
+import { formatCurrencyDisplay, formatValue } from '../utils/common';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
 interface Props {
@@ -113,16 +113,14 @@ const RenderTableCell = ({ headerLabel, data, currency, onFavoriteUpdated }: Pro
       case HEADER_LABEL.VOLUME_24H:
         return (
           <div className="table-body-item-cell">
-            <span>{getCurrency(currency)}</span>
-            <span>{formatValue(data?.total_volume)}</span>
+            <span>{formatCurrencyDisplay(formatValue(data?.total_volume) ?? '', currency)}</span>
           </div>
         );
 
       case HEADER_LABEL.MARKET_CAP:
         return (
           <div className="table-body-item-cell">
-            <span>{getCurrency(currency)}</span>
-            <span>{formatValue(data?.market_cap)}</span>
+            <span>{formatCurrencyDisplay(formatValue(data?.market_cap) ?? '', currency)}</span>
           </div>
         );
 

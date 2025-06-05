@@ -13,7 +13,12 @@ import {
 import { Line } from 'react-chartjs-2';
 
 import { CURRENCY } from '../../../../../constants/enum';
-import { formatHugeNumber, formatValue, getCurrency, hexToRGBA } from '../../../../../utils/common';
+import {
+  formatCurrencyDisplay,
+  formatHugeNumber,
+  formatValue,
+  hexToRGBA,
+} from '../../../../../utils/common';
 
 ChartJS.register(
   CategoryScale,
@@ -109,7 +114,7 @@ const DetailChart = ({ priceHistory, currency, color }: Props) => {
           },
           callback: function (tickValue: string | number) {
             const value = typeof tickValue === 'number' ? tickValue : parseFloat(tickValue);
-            return `${getCurrency(currency)}${formatHugeNumber(value)}`;
+            return `${formatCurrencyDisplay(formatHugeNumber(value), currency)}`;
           },
         },
         grid: {

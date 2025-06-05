@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Paper } from '../../../../../components/Paper';
 import type { CURRENCY } from '../../../../../constants/enum';
-import { formatHugeNumber, getCurrency } from '../../../../../utils/common';
+import { formatCurrencyDisplay, formatHugeNumber } from '../../../../../utils/common';
 
 interface RenderGlobalDataProps {
   title: string;
@@ -31,8 +31,7 @@ const RenderGlobalData: React.FC<RenderGlobalDataProps> = ({
       <div className="flex justify-between items-center bg-[var(--bg-primary)] px-4 py-3 rounded-md">
         <div className="flex flex-col">
           <p className="text-[var(--text-primary)] text-xl font-bold">
-            {getCurrency(currency)}
-            {formatHugeNumber(value)}
+            {formatCurrencyDisplay(formatHugeNumber(value), currency)}
           </p>
 
           <p className="text-[var(--text-secondary)] sm:text-sm text-[10px]">{subtitle}</p>

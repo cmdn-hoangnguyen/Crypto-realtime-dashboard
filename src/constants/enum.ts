@@ -75,3 +75,8 @@ export enum DETAIL_INFO {
 export enum ERROR_TYPE {
   PAGE = 'PAGE',
 }
+
+export enum CURRENCY_POSITION {
+  PREFIX = 'prefix',
+  SUFFIX = 'suffix',
+}

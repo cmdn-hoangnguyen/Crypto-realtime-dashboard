@@ -2,7 +2,7 @@ import type { JSX } from 'react';
 
 import { DETAIL_INFO, type CURRENCY } from '../../../../../constants/enum';
 import type { RenderData } from '../../../../../constants/type';
-import { formatHugeNumber, getCurrency } from '../../../../../utils/common';
+import { formatCurrencyDisplay, formatHugeNumber } from '../../../../../utils/common';
 
 interface Props<T = number | string> {
   title: string;
@@ -20,8 +20,9 @@ export const DetailInfoList = <T,>({ title, data, currency, detailInfo }: Props<
         const numValue = Number(value) || 0;
         return (
           <>
-            {(index === 0 || index === 1) && getCurrency(currency)}
-            {formatHugeNumber(numValue)}
+            {index === 0 || index === 1
+              ? formatCurrencyDisplay(formatHugeNumber(numValue), currency)
+              : formatHugeNumber(numValue)}
           </>
         );
       };

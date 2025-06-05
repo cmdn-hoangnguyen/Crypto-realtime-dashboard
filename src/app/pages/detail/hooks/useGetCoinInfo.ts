@@ -1,6 +1,6 @@
 import type { CURRENCY } from '../../../../constants/enum';
 import type { CoinHistory } from '../../../../constants/type';
-import { formatValue, getCurrency } from '../../../../utils/common';
+import { formatCurrencyDisplay, formatValue } from '../../../../utils/common';
 
 export const useGetCoinInfo = ({
   detailHistory,
@@ -12,7 +12,7 @@ export const useGetCoinInfo = ({
   if (!detailHistory) return [];
 
   const formatRange = (inputValue: number) => {
-    return `${getCurrency(currency)}${formatValue(inputValue ?? 0)}`;
+    return `${formatCurrencyDisplay(formatValue(inputValue ?? 0) ?? '', currency)}`;
   };
 
   return [

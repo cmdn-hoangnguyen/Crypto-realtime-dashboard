@@ -1,7 +1,7 @@
 import ValueDirection from '../../../../../components/ValueDirection';
 import type { CURRENCY } from '../../../../../constants/enum';
 import type { TrendingCoin } from '../../../../../constants/type';
-import { getCurrency } from '../../../../../utils/common';
+import { formatCurrencyDisplay } from '../../../../../utils/common';
 
 interface Props {
   data: TrendingCoin[] | [];
@@ -22,8 +22,10 @@ export const RenderTrending = ({ data, currency }: Props) => {
           </div>
 
           <div className="flex">
-            <span>{getCurrency(currency)}</span>
-            <span className="font-semibold">{trend?.item?.data?.price?.toFixed(4)}</span>
+            <span className="font-semibold">
+              {formatCurrencyDisplay(trend?.item?.data?.price?.toFixed(4), currency)}
+            </span>
+
             <span className="w-20">
               {
                 <ValueDirection

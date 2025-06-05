@@ -13,7 +13,7 @@ import ValueDirection from '../../../../components/ValueDirection';
 import { currencyOptions, dayOptions } from '../../../../constants/data';
 import { CURRENCY, DETAIL_INFO } from '../../../../constants/enum';
 import useGetCoinMarketHistory from '../../../../hooks/useGetCoinMarketHistory';
-import { formatValue, getColorByValue, getCurrency } from '../../../../utils/common';
+import { formatCurrencyDisplay, formatValue, getColorByValue } from '../../../../utils/common';
 import { useGetCoinInfo } from '../hooks/useGetCoinInfo';
 import { useGetDetailMarketInfo } from '../hooks/useGetMarketInfo';
 
@@ -112,9 +112,11 @@ const DetailCrypto = () => {
               </h2>
 
               <strong className="text-4xl">
-                <span className="text-[var(--text-primary)]">{getCurrency(currency)}</span>
                 <span className="text-[var(--text-primary)]">
-                  {formatValue(detailHistory?.market_data?.current_price?.[currency] ?? 0)}
+                  {formatCurrencyDisplay(
+                    formatValue(detailHistory?.market_data?.current_price?.[currency] ?? 0) ?? '',
+                    currency
+                  )}
                 </span>
               </strong>
 

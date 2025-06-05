@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
 import type { CURRENCY } from '../constants/enum';
-import { formatValue, getCurrency } from '../utils/common';
+import { formatCurrencyDisplay, formatValue } from '../utils/common';
 
 interface Props {
   price: number;
@@ -39,9 +39,7 @@ export const FlashColor = ({ price, classname, currency }: Props) => {
       className={clsx(classname, flashColor !== null && 'font-semibold', 'duration-150')}
       style={{ color: flashColor ?? 'inherit' }}
     >
-      <span>{getCurrency(currency)}</span>
-
-      {formatValue(price)}
+      {formatCurrencyDisplay(formatValue(price) ?? '', currency)}
     </p>
   );
 };
