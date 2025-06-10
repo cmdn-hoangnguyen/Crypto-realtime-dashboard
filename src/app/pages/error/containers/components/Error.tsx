@@ -46,6 +46,7 @@ export const Error = ({ message, errorType }: Props) => {
               variant={BUTTON_VARIANT.DEFAULT}
               label="Back to Homepage"
               onClick={() => navigate('/')}
+              ariaLabel="Back to Homepage button"
             />
           </div>
         </div>

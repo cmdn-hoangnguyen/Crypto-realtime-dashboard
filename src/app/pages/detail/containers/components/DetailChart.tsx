@@ -14,11 +14,13 @@ import { Line } from 'react-chartjs-2';
 
 import { CURRENCY } from '../../../../../constants/enum';
 import {
+  checkMobileScreen,
   formatCurrencyDisplay,
   formatHugeNumber,
   formatValue,
   hexToRGBA,
 } from '../../../../../utils/common';
+import { useEffect, useState } from 'react';
 
 ChartJS.register(
   CategoryScale,
@@ -45,8 +47,8 @@ interface Props {
 
 const DetailChart = ({ priceHistory, currency, color }: Props) => {
   const backgroundColor = hexToRGBA(color, 0.1);
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const tickFontSize = isMobile ? 10 : 12;
+  const isMobile = checkMobileScreen();
+  const tickFontSize = isMobile ? 8 : 12;
 
   const chartData = {
     labels: priceHistory?.map(item => item.time),
@@ -124,7 +126,7 @@ const DetailChart = ({ priceHistory, currency, color }: Props) => {
     },
   };
 
-  return <Line data={chartData} options={chartOptions} className="min-h-[200px]" />;
+  return <Line data={chartData} options={chartOptions} height={200} />;
 };
 
 export default DetailChart;

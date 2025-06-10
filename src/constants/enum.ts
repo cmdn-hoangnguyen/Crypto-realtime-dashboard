@@ -24,6 +24,19 @@ export enum SORT_VALUE {
   PRICE_DESC = 'current_price_desc',
 }
 
+export enum BUTTON_LABEL {
+  SELECT_CURRENCY = 'Select currency button',
+  SELECT_DAYS = 'Select days button',
+  BACK_TO_HOMEPAGE = 'Back to homepage button',
+  HEADER_ITEM_LIST = 'Header item list button',
+  SEARCH = 'Search button',
+  FAVORITE_NAVIGATION = 'Navigate to favorite page button',
+  TOGGLE_THEME = 'Toggle theme button',
+  PAGINATION_NEXT = 'Paginate to next page button',
+  PAGINATION_PREV = 'Paginate to previous page button',
+  PAGINATION_DETAIL = 'Paginate to page',
+}
+
 export enum BUTTON_VARIANT {
   DEFAULT = 'btn-variant-default',
   ACCENT = 'btn-variant-accent',

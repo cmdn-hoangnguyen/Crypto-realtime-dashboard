@@ -23,12 +23,12 @@ const RenderGlobalData: React.FC<RenderGlobalDataProps> = ({
   alt,
 }) => {
   return (
-    <Paper className="flex flex-col">
-      <h3 className="text-[var(--text-primary)] font-semibold uppercase mb-1 flex items-center lg:justify-start justify-center">
+    <Paper className="flex flex-col gap-3">
+      <h3 className="text-[var(--text-primary)] font-semibold uppercase flex items-center lg:justify-start justify-center">
         {title}
       </h3>
 
-      <div className="flex justify-between items-center bg-[var(--bg-primary)] px-4 py-3 rounded-md">
+      <div className="flex justify-between items-center bg-[var(--bg-primary)] px-4 py-2 rounded-md">
         <div className="flex flex-col">
           <p className="text-[var(--text-primary)] text-xl font-bold">
             {formatCurrencyDisplay(formatHugeNumber(value), currency)}

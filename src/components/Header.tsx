@@ -11,7 +11,7 @@ import { ModalDisplayContent } from './ModalDisplayContent';
 import { ResponsiveModalContent } from './ResponsiveModalContent';
 import { ResponsiveNavButtons } from './ResponsiveNavButtons';
 import { headerNavigate } from '../constants/data';
-import { BUTTON_VARIANT, CURRENCY, PATHNAME } from '../constants/enum';
+import { BUTTON_LABEL, BUTTON_VARIANT, CURRENCY, PATHNAME } from '../constants/enum';
 import useDebounce from '../hooks/useDebounce';
 import useSearchCoin from '../hooks/useSearchCoin';
 
@@ -78,6 +78,7 @@ const Header = () => {
                   setIsOpenModalSearch(false);
                 }}
                 isActive={isOpenResponsiveNav}
+                ariaLabel={BUTTON_LABEL.HEADER_ITEM_LIST}
               />
 
               {isOpenResponsiveNav && (
@@ -112,6 +113,7 @@ const Header = () => {
                   setIsOpenResponsiveNav(false);
                 }}
                 isActive={isOpenModalSearch}
+                ariaLabel={BUTTON_LABEL.SEARCH}
               />
 
               {isOpenModalSearch && (

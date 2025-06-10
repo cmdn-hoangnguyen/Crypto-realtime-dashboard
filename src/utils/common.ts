@@ -76,3 +76,7 @@ export const hexToRGBA = (hex: string, alpha: number) => {
   }
   return `rgba(${r},${g},${b},${alpha})`;
 };
+
+export const checkMobileScreen = () => {
+  return typeof window !== 'undefined' && window.innerWidth < 768;
+};

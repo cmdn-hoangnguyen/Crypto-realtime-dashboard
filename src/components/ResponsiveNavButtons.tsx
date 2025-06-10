@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import { Button } from './Button';
 import { Paper } from './Paper';
-import { BUTTON_VARIANT, PATHNAME, THEME } from '../constants/enum';
+import { BUTTON_LABEL, BUTTON_VARIANT, PATHNAME, THEME } from '../constants/enum';
 import { useTheme } from '../hooks/useTheme';
 
 interface Prop {
@@ -38,6 +38,7 @@ export const ResponsiveNavButtons = ({ isActiveHeart, classname }: Prop) => {
               </i>
             }
             onClick={toggleTheme}
+            ariaLabel={BUTTON_LABEL.TOGGLE_THEME}
           />
         </div>
       </li>
@@ -63,6 +64,7 @@ export const ResponsiveNavButtons = ({ isActiveHeart, classname }: Prop) => {
               }
               onClick={() => {}}
               isActive={isActiveHeart}
+              ariaLabel={BUTTON_LABEL.FAVORITE_NAVIGATION}
             />
           </div>
         </a>

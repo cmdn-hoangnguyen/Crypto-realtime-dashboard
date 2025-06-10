@@ -35,10 +35,7 @@ export const FlashColor = ({ price, classname, currency }: Props) => {
   }, [flashColor]);
 
   return (
-    <p
-      className={clsx(classname, flashColor !== null && 'font-semibold', 'duration-150')}
-      style={{ color: flashColor ?? 'inherit' }}
-    >
+    <p className={clsx(classname, 'duration-150')} style={{ color: flashColor ?? 'inherit' }}>
       {formatCurrencyDisplay(formatValue(price) ?? '', currency)}
     </p>
   );

@@ -12,14 +12,23 @@ interface Props {
   placeholder: string;
   classname?: string;
   isLoading?: boolean;
+  isShadowStyle?: boolean;
 }
 
-const SearchInput = ({ value, onChange, placeholder, classname, isLoading }: Props) => {
+const SearchInput = ({
+  value,
+  onChange,
+  placeholder,
+  classname,
+  isLoading,
+  isShadowStyle = true,
+}: Props) => {
   return (
     <form
       className={clsx(
-        'form-layout flex text-[var(--color-muted)] bg-[var(--bg-secondary)] p-2 rounded-md',
-        classname
+        'flex text-[var(--color-muted)] bg-[var(--bg-secondary)] p-2 rounded-md',
+        classname,
+        isShadowStyle && 'form-layout'
       )}
       onSubmit={event => {
         event.preventDefault();

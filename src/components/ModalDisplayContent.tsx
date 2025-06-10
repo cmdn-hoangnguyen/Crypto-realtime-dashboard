@@ -11,7 +11,10 @@ export const ModalDisplayContent = ({
 }) => {
   return (
     <div
-      className={clsx(classname, 'absolute top-full p-4 mt-2 rounded-md bg-[var(--bg-gray-light)]')}
+      className={clsx(
+        classname,
+        'modal absolute top-full mt-2 rounded-md bg-[var(--bg-gray-light)]'
+      )}
     >
       {children}
     </div>

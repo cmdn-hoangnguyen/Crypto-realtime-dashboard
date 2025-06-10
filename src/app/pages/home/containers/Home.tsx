@@ -20,12 +20,13 @@ import {
   SORT_OPTIONS,
   totalItemOptions,
 } from '../../../../constants/data';
-import { CURRENCY, HEADER_LABEL, SORT_VALUE } from '../../../../constants/enum';
+import { BUTTON_LABEL, CURRENCY, HEADER_LABEL, SORT_VALUE } from '../../../../constants/enum';
 import type { TrendingCategory, TrendingCoin } from '../../../../constants/type';
 import useDebounce from '../../../../hooks/useDebounce';
 import { useGlobalMarket } from '../../../../hooks/useGlobalMarket';
 import useCoinMarketController from '../hook/useCoinMarketController';
 import { useRenderTrending } from '../hook/useRenderTrending';
+import { checkMobileScreen } from '../../../../utils/common';
 
 const Home = () => {
   const [currency, setCurrency] = useState(CURRENCY.USD);
@@ -92,13 +93,13 @@ const Home = () => {
   return (
     <main className="main-home pt-20">
       <Container>
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-12">
           <SectionLayout
             title="Global Market"
             subTitle="Discover the most talked-about cryptocurrencies and market movers now!"
           >
-            <div className="grid grid-cols-12 gap-6 mb-12">
-              <div className="lg:h-[280px] sm:h-[296px] h-[280px] lg:col-span-4 col-span-12 flex flex-col justify-between">
+            <div className="grid grid-cols-12 grid-rows-2 lg:gap-2 gap-6">
+              <div className="lg:col-span-4 col-span-12 order-1">
                 <RenderGlobal
                   title="Total market"
                   value={globalMarket?.total_market_cap?.[currency] ?? 0}
@@ -107,7 +108,9 @@ const Home = () => {
                   imgUrl="https://www.coingecko.com/total_market_cap.svg"
                   alt="Market Cap"
                 />
+              </div>
 
+              <div className="lg:col-span-4 col-span-12 lg:order-4 order-2">
                 <RenderGlobal
                   title="Total volume"
                   value={globalMarket?.total_volume?.[currency] ?? 0}
@@ -118,7 +121,7 @@ const Home = () => {
                 />
               </div>
 
-              <div className="lg:col-span-4 col-span-12">
+              <div className="lg:col-span-4 col-span-12 row-span-2">
                 <RenderInfoValue
                   title={coinTrending?.title}
                   data={coinTrending?.data}
@@ -134,7 +137,7 @@ const Home = () => {
                 />
               </div>
 
-              <div className="lg:col-span-4 col-span-12">
+              <div className="lg:col-span-4 col-span-12 row-span-2">
                 <RenderInfoValue
                   title={categoryTrending?.title}
                   data={categoryTrending?.data}
@@ -157,19 +160,20 @@ const Home = () => {
           >
             <Paper className="mb-6">
               <div
-                className="flex flex-col md:flex-row gap-4 justify-between md:items-center items-end"
+                className="flex flex-col md:flex-row md:gap-4 gap-2 justify-between items-center"
                 ref={tableRef}
               >
                 <TableTitle
                   label={
-                    <span className="text-[var(--text-primary)] flex gap-2">
+                    <span className="text-[var(--text-primary)] flex gap-2s">
                       Sorted by {SORT_OPTIONS[sort]}
                     </span>
                   }
                 />
 
-                <div className="table-actions flex gap-2">
+                <div className="table-actions flex gap-2 md:w-fit w-full md:mb-0 mb-1">
                   <SearchInput
+                    classname="md:w-fit w-full"
                     value={inputValue}
                     onChange={handleInputChange}
                     placeholder="Search coin..."
@@ -187,6 +191,7 @@ const Home = () => {
                       />
                     }
                     onClick={() => setIsCurrencySelectOpen(!isCurrencySelectOpen)}
+                    ariaLabel={BUTTON_LABEL.SELECT_CURRENCY}
                   />
 
                   <Button
@@ -200,6 +205,7 @@ const Home = () => {
                       />
                     }
                     onClick={() => setIsTotalItemsSelectOpen(!isTotalItemsSelectOpen)}
+                    ariaLabel={BUTTON_LABEL.SELECT_DAYS}
                   />
                 </div>
               </div>
@@ -219,16 +225,18 @@ const Home = () => {
               />
             )}
 
-            <Paper className="mt-6">
-              <Pagination
-                dataLength={displayedCoinLength ?? 0}
-                currentPage={currentPage}
-                itemsPerPage={itemsPerPage}
-                onPaginationClick={(page: number) => {
-                  handlePagination(page);
-                }}
-              />
-            </Paper>
+            {displayedCoinLength && displayedCoinLength > itemsPerPage && (
+              <Paper className="mt-6">
+                <Pagination
+                  dataLength={displayedCoinLength}
+                  currentPage={currentPage}
+                  itemsPerPage={itemsPerPage}
+                  onPaginationClick={(page: number) => {
+                    handlePagination(page);
+                  }}
+                />
+              </Paper>
+            )}
           </SectionLayout>
         </div>
       </Container>

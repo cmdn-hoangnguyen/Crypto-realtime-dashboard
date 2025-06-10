@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 
 import { Button } from './Button';
+import { BUTTON_LABEL } from '../constants/enum';
 
 interface Props {
   dataLength: number;
@@ -68,6 +69,7 @@ const Pagination = ({
           }
           onClick={handlePrevPage}
           isActive={currentPage === 1}
+          ariaLabel={BUTTON_LABEL.PAGINATION_PREV}
         />
       </li>
 
@@ -87,6 +89,7 @@ const Pagination = ({
               label={page.toString()}
               onClick={() => onPaginationClick(page)}
               isActive={page === currentPage}
+              ariaLabel={`${BUTTON_LABEL.PAGINATION_DETAIL} ${page.toString()}`}
             />
           )}
         </li>
@@ -101,6 +104,7 @@ const Pagination = ({
           }
           onClick={handleNextPage}
           isActive={currentPage === lastPage}
+          ariaLabel={BUTTON_LABEL.PAGINATION_NEXT}
         />
       </li>
     </ul>

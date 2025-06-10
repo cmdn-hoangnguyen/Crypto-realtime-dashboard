@@ -17,7 +17,7 @@ export const coinMarketTable: TableTemplate[] = [
       'w-[200px] max-w-[40vw] sticky left-[-1px] top-[-1px] border-b-[var(--border-default)]',
     headerClass: 'bg-[var(--bg-secondary)]',
     bodyClass:
-      'bg-[var(--bg-primary)] group-hover:font-bold border border-solid group-hover:border-t-[var(--bg-secondary)] group-hover:border-l-[var(--bg-secondary)] group-hover:border-r-[var(--bg-secondary)] border-t-transparent border-l-transparent border-r-transparent',
+      'bg-[var(--bg-primary)] border border-solid group-hover:border-t-[var(--bg-secondary)] group-hover:border-l-[var(--bg-secondary)] group-hover:border-r-[var(--bg-secondary)] border-t-transparent border-l-transparent border-r-transparent',
   },
   {
     id: 3,

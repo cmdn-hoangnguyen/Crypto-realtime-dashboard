@@ -103,6 +103,7 @@ const DetailCrypto = () => {
                       label={option?.label}
                       isActive={days === option.value}
                       onClick={() => setDays(option?.value)}
+                      ariaLabel={option?.label}
                     />
                   </li>
                 ))}
@@ -119,6 +120,7 @@ const DetailCrypto = () => {
                   />
                 }
                 onClick={() => setIsCurrencySelectOpen(!isCurrencySelectOpen)}
+                ariaLabel="Select currency button"
               />
             </Paper>
 

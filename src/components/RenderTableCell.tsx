@@ -69,10 +69,10 @@ const RenderTableCell = ({ headerLabel, data, currency, onFavoriteUpdated }: Pro
         return (
           <div className="table-body-item-cell">
             <button
-              className="group px-2 py-1 rounded-md duration-150 bg-transparent hover:bg-[var(--color-error)]"
+              className="group px-2 py-1 rounded-md duration-150 bg-transparent"
               onClick={toggleFavorite}
             >
-              <i className="text-[var(--color-error)] group-hover:text-white">
+              <i className="hover:text-[var(--color-error)] text-[var(--text-primary)]">
                 <FontAwesomeIcon icon={faTrash} />
               </i>
             </button>

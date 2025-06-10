@@ -7,6 +7,7 @@ import { BUTTON_VARIANT } from '../constants/enum';
 interface Props {
   label: string | JSX.Element;
   onClick: () => void;
+  ariaLabel: string;
   variant?: BUTTON_VARIANT;
   classname?: string;
   isActive?: boolean;
@@ -15,6 +16,7 @@ interface Props {
 export const Button = ({
   label,
   onClick,
+  ariaLabel,
   classname,
   variant = BUTTON_VARIANT.DEFAULT,
   isActive = false,
@@ -24,6 +26,7 @@ export const Button = ({
       className={clsx('btn-base min-w-10 group', isActive && 'btn-base-active', classname, variant)}
       onClick={onClick}
       type="button"
+      aria-label={ariaLabel}
     >
       {label}
     </button>

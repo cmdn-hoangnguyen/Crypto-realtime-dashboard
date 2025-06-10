@@ -24,24 +24,25 @@ export const ResponsiveModalContent = ({
   isActiveHeart,
 }: Props) => {
   return (
-    <div className="flex flex-col gap-2 w-[300px] max-w-[90vw]">
-      <ul className="grid grid-cols-12 gap-2 md:hidden justify-between mb-2">
+    <div className="flex flex-col md:w-[400px] w-full-minus-16 md:p-4 p-2">
+      <ul className="w-[360px] max-w-full grid grid-cols-12 gap-2 md:hidden justify-between ml-auto mb-2">
         <ResponsiveNavButtons classname="col-span-6" isActiveHeart={isActiveHeart} />
       </ul>
 
       <SearchInput
-        classname="mb-2"
+        classname="py-4"
         value={inputValue}
         onChange={handleInputChange}
         placeholder="Search coin..."
         isLoading={rawCoinLoading}
+        isShadowStyle={false}
       />
 
-      {debouncedInput?.length ? (
-        <ul className="flex flex-col gap-1 max-h-[75vh] overflow-y-auto overflow-x-hidden">
+      {!!debouncedInput?.length && (
+        <ul className="flex flex-col gap-1 max-h-[50vh] overflow-y-auto overflow-x-hidden mt-2">
           {rawCoin?.length ? (
             rawCoin.map((coin: RawCoin) => (
-              <li key={coin.id} className="p-2 bg-[var(--bg-muted)] rounded-md">
+              <li className="p-2 bg-[var(--bg-muted)] rounded-md" key={coin.id}>
                 <CoinRawInfoNavigation coin={coin} size={32} isLarger />
               </li>
             ))
@@ -51,8 +52,6 @@ export const ResponsiveModalContent = ({
             </div>
           )}
         </ul>
-      ) : (
-        <p className="text-center text-[var(--text-primary)]">Search something</p>
       )}
     </div>
   );
